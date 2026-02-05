@@ -101,3 +101,29 @@ The idea for this project was inspired by the common academic stress faced by st
 - Initial implementation will be a prototype-level system  
 
 ---
+## MoSCoW Prioritization
+
+### Must Have
+- User login functionality
+- Student workload logging (study hours, assignments, tests)
+- Burnout risk calculation (Low / Moderate / High)
+- Alerts for high burnout risk
+- Faculty view of at-risk students
+
+### Should Have
+- Faculty dashboard with workload overview
+- Counseling request and scheduling
+- Parent access to student progress summary
+- Administrative management of users
+
+### Could Have
+- Study recommendations for students
+- Detailed reports and analytics
+- Historical workload trends
+- Email notifications
+
+### Won’t Have (For Now)
+- AI-based burnout prediction
+- Mobile application
+- Integration with external health platforms
+- Real-time biometric or wearable data
