@@ -127,3 +127,10 @@ The idea for this project was inspired by the common academic stress faced by st
 - Mobile application
 - Integration with external health platforms
 - Real-time biometric or wearable data
+## Branching Strategy
+
+This project follows GitHub Flow.
+
+The main branch contains the stable version of the project.
+
+New features are developed in separate branches before merging into the main branch.
