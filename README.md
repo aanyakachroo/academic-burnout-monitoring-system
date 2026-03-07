@@ -134,3 +134,17 @@ This project follows GitHub Flow.
 The main branch contains the stable version of the project.
 
 New features are developed in separate branches before merging into the main branch.
+
+## Quick Start – Local Development
+
+1. Clone the repository
+git clone https://github.com/aanyakachroo/academic-burnout-monitoring-system
+
+2. Navigate to project folder
+cd academic-burnout-monitoring-system
+
+3. Run Docker container
+docker run -d -p 8081:80 nginx
+
+4. Open in browser
+http://localhost:8081
