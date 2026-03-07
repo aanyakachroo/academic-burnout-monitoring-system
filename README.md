@@ -148,3 +148,12 @@ docker run -d -p 8081:80 nginx
 
 4. Open in browser
 http://localhost:8081
+
+## Local Development Tools
+
+The following tools were used for development:
+
+- GitHub – version control and repository hosting
+- Docker Desktop – containerization and running services locally
+- Figma – UI wireframe design
+- Draw.io – architecture diagram design
