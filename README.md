@@ -157,3 +157,11 @@ The following tools were used for development:
 - Docker Desktop – containerization and running services locally
 - Figma – UI wireframe design
 - Draw.io – architecture diagram design
+
+## Software Design
+
+The Academic Burnout Monitoring System follows a client-server architecture where users interact with the frontend web application which communicates with the backend server and database.
+
+The system design applies software engineering principles such as abstraction, modularity, high cohesion, and low coupling to improve maintainability and scalability.
+
+Architecture diagrams and UI wireframes are available in the docs/design folder.
