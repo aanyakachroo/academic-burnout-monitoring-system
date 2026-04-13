@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AcadWatch — Counselor Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0f1b2d; --purple: #7c3aed; --purple-light: #f3e8ff;
+  --blue: #1e6fff; --blue-light: #e8f0ff;
+  --green: #16a34a; --green-light: #dcfce7;
+  --amber: #d97706; --amber-light: #fef3c7; --red: #dc2626; --red-light: #fee2e2;
+  --text: #0f1b2d; --muted: #6b7a8f; --border: #dde3ed; --surface: #f6f8fc; --white: #fff;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; display: flex; }
+.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; }
+.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 0 8px; }
+.logo-icon { width: 34px; height: 34px; background: var(--purple); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.logo-name { font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; color: rgba(255,255,255,0.55); font-size: 13.5px; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+.nav-item.active { background: var(--purple); color: #fff; font-weight: 500; }
+.nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.25); padding: 16px 12px 6px; }
+.sidebar-footer { margin-top: auto; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.06); }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--purple); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
+.user-name { font-size: 13px; color: #fff; font-weight: 500; }
+.user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
+.main { margin-left: 240px; flex: 1; padding: 32px 36px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 26px; }
+.page-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); }
+.btn-purple { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 20px; }
+.stat-val { font-size: 30px; font-weight: 600; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; display: inline-block; margin-top: 8px; }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-purple { background: var(--purple-light); color: var(--purple); }
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+
+.two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; }
+.card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1.5px solid var(--border); }
+.card-title { font-size: 14px; font-weight: 600; }
+.card-body { padding: 0; }
+
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; padding: 11px 20px; text-align: left; background: var(--surface); border-bottom: 1.5px solid var(--border); }
+td { padding: 13px 20px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+.risk-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.risk-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.risk-high { background: var(--red-light); color: var(--red); }
+.risk-high::before { background: var(--red); }
+.action-btn { padding: 5px 12px; border-radius: 7px; font-size: 12px; border: 1.5px solid var(--purple); color: var(--purple); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+.session-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+.session-item:last-child { border-bottom: none; }
+.session-time { text-align: center; min-width: 42px; }
+.session-date { font-size: 20px; font-weight: 600; color: var(--purple); line-height: 1; }
+.session-mon { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.5px; }
+.session-info { flex: 1; }
+.session-name { font-size: 13px; font-weight: 500; }
+.session-note { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.session-status { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; }
+.status-upcoming { background: var(--blue-light); color: var(--blue); }
+.status-done { background: var(--green-light); color: var(--green); }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">🧠</div>
+    <div class="logo-name">AcadWatch</div>
+  </div>
+  <a class="nav-item active">📊 Overview</a>
+  <a class="nav-item">🚨 High-Risk Students</a>
+  <a class="nav-item">📅 Sessions</a>
+  <a class="nav-item">📝 Notes</a>
+  <div class="nav-section">Tools</div>
+  <a class="nav-item">📈 Recovery Tracker</a>
+  <a class="nav-item">📄 Reports</a>
+  <div class="sidebar-footer">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="avatar">PA</div>
+      <div><div class="user-name">Ms. Priya Anand</div><div class="user-role">Counselor</div></div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title">Counselor Dashboard</div>
+      <div class="page-sub">Monday, 12 April 2026</div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn">📝 Add Notes</button>
+      <button class="btn btn-purple">+ Schedule Session</button>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div style="font-size:20px;margin-bottom:10px">🚨</div>
+      <div class="stat-val" style="color:var(--red)">14</div>
+      <div class="stat-label">High-risk students referred</div>
+      <div class="badge badge-red">Immediate attention</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:20px;margin-bottom:10px">📅</div>
+      <div class="stat-val" style="color:var(--purple)">6</div>
+      <div class="stat-label">Sessions this week</div>
+      <div class="badge badge-purple">2 remaining</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:20px;margin-bottom:10px">✅</div>
+      <div class="stat-val" style="color:var(--green)">9</div>
+      <div class="stat-label">Students in recovery</div>
+      <div class="badge badge-green">Improving</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:20px;margin-bottom:10px">💬</div>
+      <div class="stat-val">128</div>
+      <div class="stat-label">Total sessions conducted</div>
+      <div class="badge badge-amber">This semester</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">High-Risk Students — Referred to You</div>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr><th>Student</th><th>Score</th><th>Risk</th><th>Referred By</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="font-weight:500">Arjun Krishnan</div><div style="font-size:11px;color:var(--muted)">21CS047</div></td>
+              <td style="font-weight:600;color:var(--red)">87</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+              <td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td>
+              <td><button class="action-btn">Schedule</button></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:500">Priya Mehta</div><div style="font-size:11px;color:var(--muted)">21CS031</div></td>
+              <td style="font-weight:600;color:var(--red)">78</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+              <td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td>
+              <td><button class="action-btn">Schedule</button></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:500">Karan Patel</div><div style="font-size:11px;color:var(--muted)">21CS019</div></td>
+              <td style="font-weight:600;color:var(--red)">74</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+              <td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td>
+              <td><button class="action-btn">Schedule</button></td>
+            </tr>
+            <tr>
+              <td><div style="font-weight:500">Aisha Begum</div><div style="font-size:11px;color:var(--muted)">21CS062</div></td>
+              <td style="font-weight:600;color:var(--red)">71</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+              <td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td>
+              <td><button class="action-btn">Schedule</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Upcoming Sessions</div>
+        <span style="font-size:12px;color:var(--purple);cursor:pointer">View all</span>
+      </div>
+      <div class="card-body">
+        <div class="session-item">
+          <div class="session-time">
+            <div class="session-date">14</div>
+            <div class="session-mon">Apr</div>
+          </div>
+          <div class="session-info">
+            <div class="session-name">Rahul Sharma · 2:00 PM</div>
+            <div class="session-note">Follow-up — medium risk monitoring</div>
+          </div>
+          <span class="session-status status-upcoming">Upcoming</span>
+        </div>
+        <div class="session-item">
+          <div class="session-time">
+            <div class="session-date">15</div>
+            <div class="session-mon">Apr</div>
+          </div>
+          <div class="session-info">
+            <div class="session-name">Arjun Krishnan · 10:00 AM</div>
+            <div class="session-note">First session — high burnout risk (87)</div>
+          </div>
+          <span class="session-status status-upcoming">Upcoming</span>
+        </div>
+        <div class="session-item">
+          <div class="session-time">
+            <div class="session-date">16</div>
+            <div class="session-mon">Apr</div>
+          </div>
+          <div class="session-info">
+            <div class="session-name">Priya Mehta · 3:30 PM</div>
+            <div class="session-note">Stress management consultation</div>
+          </div>
+          <span class="session-status status-upcoming">Upcoming</span>
+        </div>
+        <div class="session-item">
+          <div class="session-time">
+            <div class="session-date">11</div>
+            <div class="session-mon">Apr</div>
+          </div>
+          <div class="session-info">
+            <div class="session-name">Vikram Rao · 11:00 AM</div>
+            <div class="session-note">Recovery check — marked recovered</div>
+          </div>
+          <span class="session-status status-done">Completed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

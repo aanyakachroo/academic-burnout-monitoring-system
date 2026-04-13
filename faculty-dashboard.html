@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AcadWatch — Faculty Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0f1b2d; --blue: #1e6fff; --blue-light: #e8f0ff;
+  --accent: #ff6b35; --green: #16a34a; --green-light: #dcfce7;
+  --amber: #d97706; --amber-light: #fef3c7; --red: #dc2626; --red-light: #fee2e2;
+  --text: #0f1b2d; --muted: #6b7a8f; --border: #dde3ed; --surface: #f6f8fc; --white: #fff;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; display: flex; }
+
+.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; }
+.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 0 8px; }
+.logo-icon { width: 34px; height: 34px; background: var(--blue); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+.logo-icon svg { width: 18px; height: 18px; }
+.logo-name { font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; color: rgba(255,255,255,0.55); font-size: 13.5px; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+.nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+.nav-item.active { background: var(--blue); color: #fff; font-weight: 500; }
+.nav-icon { width: 18px; text-align: center; font-size: 15px; }
+.nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.25); padding: 16px 12px 6px; }
+.sidebar-footer { margin-top: auto; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.06); }
+.user-info { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
+.user-name { font-size: 13px; color: #fff; font-weight: 500; }
+.user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.main { margin-left: 240px; flex: 1; padding: 32px 36px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--text); }
+.page-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); transition: all 0.15s; }
+.btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+/* STAT CARDS */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 20px; }
+.stat-icon { font-size: 22px; margin-bottom: 12px; }
+.stat-val { font-size: 30px; font-weight: 600; line-height: 1; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 5px; }
+.stat-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 8px; border-radius: 6px; margin-top: 8px; font-weight: 500; }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+
+/* STUDENT TABLE */
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+.card-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1.5px solid var(--border); }
+.card-title { font-size: 15px; font-weight: 600; }
+.card-actions { display: flex; gap: 8px; }
+.search-box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 9px; padding: 7px 12px; }
+.search-box input { border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); outline: none; width: 160px; }
+
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; padding: 12px 22px; text-align: left; background: var(--surface); border-bottom: 1.5px solid var(--border); }
+td { padding: 14px 22px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--surface); }
+
+.student-cell { display: flex; align-items: center; gap: 10px; }
+.s-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; flex-shrink: 0; }
+.s-name { font-weight: 500; color: var(--text); }
+.s-id { font-size: 11px; color: var(--muted); }
+
+.risk-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.risk-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.risk-high { background: var(--red-light); color: var(--red); }
+.risk-high::before { background: var(--red); }
+.risk-medium { background: var(--amber-light); color: var(--amber); }
+.risk-medium::before { background: var(--amber); }
+.risk-low { background: var(--green-light); color: var(--green); }
+.risk-low::before { background: var(--green); }
+
+.score-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.score-bar { width: 80px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 3px; }
+.fill-red { background: var(--red); }
+.fill-amber { background: var(--amber); }
+.fill-green { background: var(--green); }
+
+.action-btn { padding: 5px 12px; border-radius: 7px; font-size: 12px; border: 1.5px solid var(--border); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; color: var(--text); transition: all 0.15s; }
+.action-btn:hover { border-color: var(--blue); color: var(--blue); }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div class="logo-name">AcadWatch</div>
+  </div>
+  <a class="nav-item active"><span class="nav-icon">📊</span> Overview</a>
+  <a class="nav-item"><span class="nav-icon">👥</span> My Students</a>
+  <a class="nav-item"><span class="nav-icon">⚠️</span> At-Risk Students</a>
+  <a class="nav-item"><span class="nav-icon">📈</span> Trends</a>
+  <div class="nav-section">Actions</div>
+  <a class="nav-item"><span class="nav-icon">📢</span> Send Advisory</a>
+  <a class="nav-item"><span class="nav-icon">📄</span> Reports</a>
+  <a class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="avatar">DK</div>
+      <div>
+        <div class="user-name">Dr. D. Kumar</div>
+        <div class="user-role">Faculty · CSE Dept.</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title">Faculty Overview</div>
+      <div class="page-sub">Monday, 12 April 2026 · CSE Department</div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn">📤 Export Report</button>
+      <button class="btn btn-primary">📢 Send Advisory</button>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-val">148</div>
+      <div class="stat-label">Total students assigned</div>
+      <div class="stat-badge badge-blue">↑ 6 this month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🚨</div>
+      <div class="stat-val" style="color:var(--red)">14</div>
+      <div class="stat-label">High burnout risk</div>
+      <div class="stat-badge badge-red">Needs immediate action</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-val" style="color:var(--amber)">37</div>
+      <div class="stat-label">Medium risk students</div>
+      <div class="stat-badge badge-amber">Monitor closely</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-val" style="color:var(--green)">97</div>
+      <div class="stat-label">Low / no risk</div>
+      <div class="stat-badge badge-green">On track</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Student Workload Monitor</div>
+      <div class="card-actions">
+        <div class="search-box">
+          <span style="color:var(--muted);font-size:14px">🔍</span>
+          <input type="text" placeholder="Search students...">
+        </div>
+        <select style="border:1.5px solid var(--border);border-radius:9px;padding:7px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;background:var(--white);outline:none;">
+          <option>All Risk Levels</option>
+          <option>High Risk</option>
+          <option>Medium Risk</option>
+          <option>Low Risk</option>
+        </select>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Study Hrs / Week</th>
+          <th>Pending Tasks</th>
+          <th>Stress Level</th>
+          <th>Burnout Score</th>
+          <th>Risk Level</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="student-cell"><div class="s-avatar" style="background:#dc2626">AK</div><div><div class="s-name">Arjun Krishnan</div><div class="s-id">21CS047</div></div></div></td>
+          <td>58h</td><td>11</td><td>9/10</td>
+          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-red" style="width:87%"></div></div><span style="font-size:12px;font-weight:500">87</span></div></td>
+          <td><span class="risk-badge risk-high">High</span></td>
+          <td><button class="action-btn">Alert + Refer</button></td>
+        </tr>
+        <tr>
+          <td><div class="student-cell"><div class="s-avatar" style="background:#d97706">PM</div><div><div class="s-name">Priya Mehta</div><div class="s-id">21CS031</div></div></div></td>
+          <td>51h</td><td>9</td><td>8/10</td>
+          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-red" style="width:78%"></div></div><span style="font-size:12px;font-weight:500">78</span></div></td>
+          <td><span class="risk-badge risk-high">High</span></td>
+          <td><button class="action-btn">Alert + Refer</button></td>
+        </tr>
+        <tr>
+          <td><div class="student-cell"><div class="s-avatar" style="background:#0f1b2d">RS</div><div><div class="s-name">Rahul Sharma</div><div class="s-id">21CS012</div></div></div></td>
+          <td>42h</td><td>8</td><td>6/10</td>
+          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-amber" style="width:55%"></div></div><span style="font-size:12px;font-weight:500">55</span></div></td>
+          <td><span class="risk-badge risk-medium">Medium</span></td>
+          <td><button class="action-btn">Send Advisory</button></td>
+        </tr>
+        <tr>
+          <td><div class="student-cell"><div class="s-avatar" style="background:#7c3aed">SN</div><div><div class="s-name">Sneha Nair</div><div class="s-id">21CS058</div></div></div></td>
+          <td>38h</td><td>6</td><td>5/10</td>
+          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-amber" style="width:48%"></div></div><span style="font-size:12px;font-weight:500">48</span></div></td>
+          <td><span class="risk-badge risk-medium">Medium</span></td>
+          <td><button class="action-btn">Send Advisory</button></td>
+        </tr>
+        <tr>
+          <td><div class="student-cell"><div class="s-avatar" style="background:#16a34a">VR</div><div><div class="s-name">Vikram Rao</div><div class="s-id">21CS074</div></div></div></td>
+          <td>28h</td><td>3</td><td>3/10</td>
+          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-green" style="width:22%"></div></div><span style="font-size:12px;font-weight:500">22</span></div></td>
+          <td><span class="risk-badge risk-low">Low</span></td>
+          <td><button class="action-btn">View Profile</button></td>
+        </tr>
+        <tr>
+          <td><div class="student-cell"><div class="s-avatar" style="background:#0891b2">DT</div><div><div class="s-name">Divya Thomas</div><div class="s-id">21CS083</div></div></div></td>
+          <td>25h</td><td>2</td><td>2/10</td>
+          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-green" style="width:18%"></div></div><span style="font-size:12px;font-weight:500">18</span></div></td>
+          <td><span class="risk-badge risk-low">Low</span></td>
+          <td><button class="action-btn">View Profile</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

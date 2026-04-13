@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AcadWatch — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0f1b2d; --blue: #1e6fff; --blue-light: #e8f0ff;
+  --accent: #ff6b35; --green: #16a34a; --green-light: #dcfce7;
+  --amber: #d97706; --amber-light: #fef3c7; --red: #dc2626; --red-light: #fee2e2;
+  --text: #0f1b2d; --muted: #6b7a8f; --border: #dde3ed; --surface: #f6f8fc; --white: #fff;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; display: flex; }
+.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; }
+.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 0 8px; }
+.logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+.logo-icon svg { width: 18px; height: 18px; }
+.logo-name { font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; color: rgba(255,255,255,0.55); font-size: 13.5px; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+.nav-item.active { background: var(--accent); color: #fff; font-weight: 500; }
+.nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.25); padding: 16px 12px 6px; }
+.sidebar-footer { margin-top: auto; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.06); }
+.user-info { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
+.user-name { font-size: 13px; color: #fff; font-weight: 500; }
+.user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
+.main { margin-left: 240px; flex: 1; padding: 32px 36px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.page-title { font-family: 'DM Serif Display', serif; font-size: 26px; }
+.page-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); transition: all 0.15s; }
+.btn-accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 22px; }
+.stat-val { font-size: 32px; font-weight: 600; line-height: 1; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 5px; }
+.stat-change { font-size: 11px; margin-top: 10px; padding: 3px 8px; border-radius: 6px; display: inline-block; font-weight: 500; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; }
+.card-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1.5px solid var(--border); }
+.card-title { font-size: 14px; font-weight: 600; }
+.card-body { padding: 20px 22px; }
+
+.rule-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.rule-item:last-child { border-bottom: none; }
+.rule-name { font-size: 13px; font-weight: 500; }
+.rule-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.rule-val { font-size: 14px; font-weight: 600; color: var(--blue); background: var(--blue-light); padding: 4px 12px; border-radius: 8px; }
+
+.log-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.log-item:last-child { border-bottom: none; }
+.log-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.log-text { font-size: 13px; }
+.log-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; padding: 12px 22px; text-align: left; background: var(--surface); border-bottom: 1.5px solid var(--border); }
+td { padding: 13px 22px; border-bottom: 1px solid var(--border); font-size: 13px; }
+tr:last-child td { border-bottom: none; }
+.toggle { width: 36px; height: 20px; border-radius: 10px; border: none; cursor: pointer; position: relative; }
+.toggle.on { background: var(--green); }
+.toggle.off { background: var(--border); }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div class="logo-name">AcadWatch</div>
+  </div>
+  <a class="nav-item active">📊 System Overview</a>
+  <a class="nav-item">👥 Manage Users</a>
+  <a class="nav-item">⚙️ Burnout Rules</a>
+  <a class="nav-item">📄 Reports</a>
+  <div class="nav-section">System</div>
+  <a class="nav-item">🔔 Notifications</a>
+  <a class="nav-item">🔐 Security</a>
+  <a class="nav-item">🗄️ Database</a>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="avatar">A</div>
+      <div><div class="user-name">System Admin</div><div class="user-role">Administrator</div></div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title">Admin Panel</div>
+      <div class="page-sub">System management · AcadWatch v1.0</div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn">🗄️ Backup DB</button>
+      <button class="btn btn-accent">+ Add User</button>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div style="font-size:22px;margin-bottom:10px">👥</div>
+      <div class="stat-val">2,840</div>
+      <div class="stat-label">Total users registered</div>
+      <div class="stat-change badge-blue">↑ 48 this week</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:22px;margin-bottom:10px">🚨</div>
+      <div class="stat-val" style="color:var(--red)">51</div>
+      <div class="stat-label">High-risk alerts today</div>
+      <div class="stat-change badge-red">Requires review</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:22px;margin-bottom:10px">💬</div>
+      <div class="stat-val">128</div>
+      <div class="stat-label">Counseling sessions</div>
+      <div class="stat-change badge-green">↑ 12 this month</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:22px;margin-bottom:10px">⚙️</div>
+      <div class="stat-val" style="color:var(--green)">99.8%</div>
+      <div class="stat-label">System uptime</div>
+      <div class="stat-change badge-green">All systems normal</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:20px">
+    <!-- BURNOUT RULES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Burnout Rule Configuration</div>
+        <button class="btn" style="font-size:12px;padding:6px 12px;">Edit Rules</button>
+      </div>
+      <div class="card-body">
+        <div class="rule-item">
+          <div><div class="rule-name">Low Risk Threshold</div><div class="rule-desc">Score below this = Low risk</div></div>
+          <div class="rule-val">≤ 40</div>
+        </div>
+        <div class="rule-item">
+          <div><div class="rule-name">Medium Risk Threshold</div><div class="rule-desc">Score in this range = Medium</div></div>
+          <div class="rule-val">41 – 70</div>
+        </div>
+        <div class="rule-item">
+          <div><div class="rule-name">High Risk Threshold</div><div class="rule-desc">Score above this = High</div></div>
+          <div class="rule-val">> 70</div>
+        </div>
+        <div class="rule-item">
+          <div><div class="rule-name">Weekly Study Hours Weight</div><div class="rule-desc">Contribution to burnout score</div></div>
+          <div class="rule-val">35%</div>
+        </div>
+        <div class="rule-item">
+          <div><div class="rule-name">Stress Level Weight</div><div class="rule-desc">Contribution to burnout score</div></div>
+          <div class="rule-val">40%</div>
+        </div>
+        <div class="rule-item">
+          <div><div class="rule-name">Pending Tasks Weight</div><div class="rule-desc">Contribution to burnout score</div></div>
+          <div class="rule-val">25%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM LOG -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">System Activity Log</div>
+        <span style="font-size:12px;color:var(--blue);cursor:pointer">View all</span>
+      </div>
+      <div class="card-body">
+        <div class="log-item"><div class="log-dot" style="background:var(--red)"></div><div><div class="log-text">51 high-risk alerts generated and dispatched</div><div class="log-time">Today, 6:00 AM · Burnout Engine</div></div></div>
+        <div class="log-item"><div class="log-dot" style="background:var(--blue)"></div><div><div class="log-text">User Arjun Krishnan (21CS047) referred to counseling</div><div class="log-time">Today, 8:22 AM · Faculty Action</div></div></div>
+        <div class="log-item"><div class="log-dot" style="background:var(--green)"></div><div><div class="log-text">48 new users registered — batch import successful</div><div class="log-time">Yesterday, 3:14 PM · Admin</div></div></div>
+        <div class="log-item"><div class="log-dot" style="background:var(--amber)"></div><div><div class="log-text">Burnout thresholds updated by System Admin</div><div class="log-time">Apr 10, 11:00 AM · Config Change</div></div></div>
+        <div class="log-item"><div class="log-dot" style="background:var(--green)"></div><div><div class="log-text">Database backup completed successfully</div><div class="log-time">Apr 10, 2:00 AM · Scheduler</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER MANAGEMENT TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">User Management</div>
+      <div style="display:flex;gap:8px">
+        <input type="text" placeholder="Search users..." style="border:1.5px solid var(--border);border-radius:9px;padding:7px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;width:200px;">
+        <select style="border:1.5px solid var(--border);border-radius:9px;padding:7px 12px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+          <option>All Roles</option>
+          <option>Student</option>
+          <option>Faculty</option>
+          <option>Counselor</option>
+        </select>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Role</th><th>Department</th><th>Status</th><th>Last Active</th><th>Active</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Rahul Sharma</td><td><span class="badge badge-blue">Student</span></td><td>CSE</td><td><span class="badge badge-green">Active</span></td><td>Today</td><td><button class="toggle on"></button></td></tr>
+        <tr><td>Dr. D. Kumar</td><td><span class="badge badge-amber">Faculty</span></td><td>CSE</td><td><span class="badge badge-green">Active</span></td><td>Today</td><td><button class="toggle on"></button></td></tr>
+        <tr><td>Ms. Priya Anand</td><td><span class="badge" style="background:#f3e8ff;color:#7c3aed">Counselor</span></td><td>Student Affairs</td><td><span class="badge badge-green">Active</span></td><td>Yesterday</td><td><button class="toggle on"></button></td></tr>
+        <tr><td>Arjun Krishnan</td><td><span class="badge badge-blue">Student</span></td><td>CSE</td><td><span class="badge badge-red">High Risk</span></td><td>Today</td><td><button class="toggle on"></button></td></tr>
+        <tr><td>Parent — M. Krishnan</td><td><span class="badge" style="background:#f0fdf4;color:#166534">Parent</span></td><td>—</td><td><span class="badge badge-green">Active</span></td><td>2 days ago</td><td><button class="toggle on"></button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>
