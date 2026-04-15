@@ -15,11 +15,12 @@
   --text: #0f1b2d; --muted: #6b7a8f; --border: #dde3ed; --surface: #f6f8fc; --white: #fff;
 }
 body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; display: flex; }
-.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
 .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 0 8px; }
 .logo-icon { width: 34px; height: 34px; background: var(--purple); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
 .logo-name { font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; }
 .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; color: rgba(255,255,255,0.55); font-size: 13.5px; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+.nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
 .nav-item.active { background: var(--purple); color: #fff; font-weight: 500; }
 .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.25); padding: 16px 12px 6px; }
 .sidebar-footer { margin-top: auto; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.06); }
@@ -30,9 +31,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
 .page-title { font-family: 'DM Serif Display', serif; font-size: 26px; }
 .page-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
-.btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); }
+.btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); transition: all 0.15s; }
 .btn-purple { background: var(--purple); color: #fff; border-color: var(--purple); }
-
+.btn-purple:hover { background: #6d28d9; }
 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
 .stat-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 20px; }
 .stat-val { font-size: 30px; font-weight: 600; }
@@ -42,13 +43,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .badge-purple { background: var(--purple-light); color: var(--purple); }
 .badge-green { background: var(--green-light); color: var(--green); }
 .badge-amber { background: var(--amber-light); color: var(--amber); }
-
 .two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
 .card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; }
 .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1.5px solid var(--border); }
 .card-title { font-size: 14px; font-weight: 600; }
 .card-body { padding: 0; }
-
 table { width: 100%; border-collapse: collapse; }
 th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; padding: 11px 20px; text-align: left; background: var(--surface); border-bottom: 1.5px solid var(--border); }
 td { padding: 13px 20px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
@@ -57,8 +56,8 @@ tr:last-child td { border-bottom: none; }
 .risk-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
 .risk-high { background: var(--red-light); color: var(--red); }
 .risk-high::before { background: var(--red); }
-.action-btn { padding: 5px 12px; border-radius: 7px; font-size: 12px; border: 1.5px solid var(--purple); color: var(--purple); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-
+.action-btn { padding: 5px 12px; border-radius: 7px; font-size: 12px; border: 1.5px solid var(--purple); color: var(--purple); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+.action-btn:hover { background: var(--purple-light); }
 .session-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--border); }
 .session-item:last-child { border-bottom: none; }
 .session-time { text-align: center; min-width: 42px; }
@@ -67,9 +66,26 @@ tr:last-child td { border-bottom: none; }
 .session-info { flex: 1; }
 .session-name { font-size: 13px; font-weight: 500; }
 .session-note { font-size: 12px; color: var(--muted); margin-top: 3px; }
-.session-status { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; }
+.session-status { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
 .status-upcoming { background: var(--blue-light); color: var(--blue); }
 .status-done { background: var(--green-light); color: var(--green); }
+.toast { position: fixed; bottom: 32px; right: 32px; background: var(--navy); color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 999; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.info { background: var(--blue); }
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,27,45,0.5); backdrop-filter: blur(4px); z-index: 500; display: none; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: 20px; padding: 32px; width: 460px; box-shadow: 0 24px 60px rgba(15,27,45,0.15); animation: modalIn 0.3s cubic-bezier(0.22,1,0.36,1); }
+@keyframes modalIn { from { opacity:0; transform:scale(0.94) translateY(12px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+.form-group label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; display: block; margin-bottom: 6px; }
+.form-group input, .form-group select { width: 100%; height: 38px; border: 1.5px solid var(--border); border-radius: 8px; padding: 0 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: var(--white); outline: none; }
 </style>
 </head>
 <body>
@@ -78,13 +94,14 @@ tr:last-child td { border-bottom: none; }
     <div class="logo-icon">🧠</div>
     <div class="logo-name">AcadWatch</div>
   </div>
-  <a class="nav-item active">📊 Overview</a>
-  <a class="nav-item">🚨 High-Risk Students</a>
-  <a class="nav-item">📅 Sessions</a>
-  <a class="nav-item">📝 Notes</a>
+  <a class="nav-item active" onclick="showSection('overview', this)">📊 Overview</a>
+  <a class="nav-item" onclick="showSection('highrisk', this)">🚨 High-Risk Students</a>
+  <a class="nav-item" onclick="showSection('sessions', this)">📅 Sessions</a>
+  <a class="nav-item" onclick="showSection('notes', this)">📝 Notes</a>
   <div class="nav-section">Tools</div>
-  <a class="nav-item">📈 Recovery Tracker</a>
-  <a class="nav-item">📄 Reports</a>
+  <a class="nav-item" onclick="showSection('recovery', this)">📈 Recovery Tracker</a>
+  <a class="nav-item" onclick="showSection('reports', this)">📄 Reports</a>
+  <a class="nav-item" style="margin-top:8px;" onclick="window.location.href='login.html'">🚪 Logout</a>
   <div class="sidebar-footer">
     <div style="display:flex;align-items:center;gap:10px">
       <div class="avatar">PA</div>
@@ -94,141 +111,238 @@ tr:last-child td { border-bottom: none; }
 </aside>
 
 <main class="main">
-  <div class="topbar">
-    <div>
-      <div class="page-title">Counselor Dashboard</div>
-      <div class="page-sub">Monday, 12 April 2026</div>
-    </div>
-    <div style="display:flex;gap:10px">
-      <button class="btn">📝 Add Notes</button>
-      <button class="btn btn-purple">+ Schedule Session</button>
-    </div>
-  </div>
-
-  <div class="stat-row">
-    <div class="stat-card">
-      <div style="font-size:20px;margin-bottom:10px">🚨</div>
-      <div class="stat-val" style="color:var(--red)">14</div>
-      <div class="stat-label">High-risk students referred</div>
-      <div class="badge badge-red">Immediate attention</div>
-    </div>
-    <div class="stat-card">
-      <div style="font-size:20px;margin-bottom:10px">📅</div>
-      <div class="stat-val" style="color:var(--purple)">6</div>
-      <div class="stat-label">Sessions this week</div>
-      <div class="badge badge-purple">2 remaining</div>
-    </div>
-    <div class="stat-card">
-      <div style="font-size:20px;margin-bottom:10px">✅</div>
-      <div class="stat-val" style="color:var(--green)">9</div>
-      <div class="stat-label">Students in recovery</div>
-      <div class="badge badge-green">Improving</div>
-    </div>
-    <div class="stat-card">
-      <div style="font-size:20px;margin-bottom:10px">💬</div>
-      <div class="stat-val">128</div>
-      <div class="stat-label">Total sessions conducted</div>
-      <div class="badge badge-amber">This semester</div>
-    </div>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">High-Risk Students — Referred to You</div>
+  <div id="sec-overview" class="page-section active">
+    <div class="topbar">
+      <div><div class="page-title">Counselor Dashboard</div><div class="page-sub" id="dateDisplay">Loading...</div></div>
+      <div style="display:flex;gap:10px">
+        <button class="btn" onclick="addNote()">📝 Add Notes</button>
+        <button class="btn btn-purple" onclick="openScheduleModal()">+ Schedule Session</button>
       </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div style="font-size:20px;margin-bottom:10px">🚨</div><div class="stat-val" style="color:var(--red)" id="referralCount">14</div><div class="stat-label">High-risk students referred</div><div class="badge badge-red">Immediate attention</div></div>
+      <div class="stat-card"><div style="font-size:20px;margin-bottom:10px">📅</div><div class="stat-val" style="color:var(--purple)">6</div><div class="stat-label">Sessions this week</div><div class="badge badge-purple">2 remaining</div></div>
+      <div class="stat-card"><div style="font-size:20px;margin-bottom:10px">✅</div><div class="stat-val" style="color:var(--green)" id="recoveryCount">9</div><div class="stat-label">Students in recovery</div><div class="badge badge-green">Improving</div></div>
+      <div class="stat-card"><div style="font-size:20px;margin-bottom:10px">💬</div><div class="stat-val">128</div><div class="stat-label">Total sessions conducted</div><div class="badge badge-amber">This semester</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header"><div class="card-title">High-Risk Students — Referred to You</div></div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th>Student</th><th>Score</th><th>Risk</th><th>Referred By</th><th>Action</th></tr></thead>
+            <tbody id="referralTable">
+              <tr><td><div style="font-weight:500">Arjun Krishnan</div><div style="font-size:11px;color:var(--muted)">21CS047</div></td><td style="font-weight:600;color:var(--red)">87</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td><td><button class="action-btn" onclick="scheduleFor(this, 'Arjun Krishnan')">Schedule</button></td></tr>
+              <tr><td><div style="font-weight:500">Priya Mehta</div><div style="font-size:11px;color:var(--muted)">21CS031</div></td><td style="font-weight:600;color:var(--red)">78</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td><td><button class="action-btn" onclick="scheduleFor(this, 'Priya Mehta')">Schedule</button></td></tr>
+              <tr><td><div style="font-weight:500">Karan Patel</div><div style="font-size:11px;color:var(--muted)">21CS019</div></td><td style="font-weight:600;color:var(--red)">74</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td><td><button class="action-btn" onclick="scheduleFor(this, 'Karan Patel')">Schedule</button></td></tr>
+              <tr><td><div style="font-weight:500">Aisha Begum</div><div style="font-size:11px;color:var(--muted)">21CS062</div></td><td style="font-weight:600;color:var(--red)">71</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td><td><button class="action-btn" onclick="scheduleFor(this, 'Aisha Begum')">Schedule</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Upcoming Sessions</div><span style="font-size:12px;color:var(--purple);cursor:pointer" onclick="showSection('sessions', document.querySelectorAll('.nav-item')[2])">View all</span></div>
+        <div class="card-body" id="sessionsPreview">
+          <div class="session-item"><div class="session-time"><div class="session-date">14</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Rahul Sharma · 2:00 PM</div><div class="session-note">Follow-up — medium risk monitoring</div></div><span class="session-status status-upcoming">Upcoming</span></div>
+          <div class="session-item"><div class="session-time"><div class="session-date">15</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Arjun Krishnan · 10:00 AM</div><div class="session-note">First session — high burnout risk (87)</div></div><span class="session-status status-upcoming">Upcoming</span></div>
+          <div class="session-item"><div class="session-time"><div class="session-date">16</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Priya Mehta · 3:30 PM</div><div class="session-note">Stress management consultation</div></div><span class="session-status status-upcoming">Upcoming</span></div>
+          <div class="session-item"><div class="session-time"><div class="session-date">11</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Vikram Rao · 11:00 AM</div><div class="session-note">Recovery check — marked recovered</div></div><span class="session-status status-done">Completed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-highrisk" class="page-section">
+    <div class="topbar"><div><div class="page-title">High-Risk Students</div><div class="page-sub">Requiring immediate counseling intervention</div></div></div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">All Referred Students (14)</div></div>
       <div class="card-body">
         <table>
-          <thead>
-            <tr><th>Student</th><th>Score</th><th>Risk</th><th>Referred By</th><th>Action</th></tr>
-          </thead>
+          <thead><tr><th>Student</th><th>Score</th><th>Risk</th><th>Referred By</th><th>Status</th><th>Action</th></tr></thead>
           <tbody>
-            <tr>
-              <td><div style="font-weight:500">Arjun Krishnan</div><div style="font-size:11px;color:var(--muted)">21CS047</div></td>
-              <td style="font-weight:600;color:var(--red)">87</td>
-              <td><span class="risk-badge risk-high">High</span></td>
-              <td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td>
-              <td><button class="action-btn">Schedule</button></td>
-            </tr>
-            <tr>
-              <td><div style="font-weight:500">Priya Mehta</div><div style="font-size:11px;color:var(--muted)">21CS031</div></td>
-              <td style="font-weight:600;color:var(--red)">78</td>
-              <td><span class="risk-badge risk-high">High</span></td>
-              <td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td>
-              <td><button class="action-btn">Schedule</button></td>
-            </tr>
-            <tr>
-              <td><div style="font-weight:500">Karan Patel</div><div style="font-size:11px;color:var(--muted)">21CS019</div></td>
-              <td style="font-weight:600;color:var(--red)">74</td>
-              <td><span class="risk-badge risk-high">High</span></td>
-              <td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td>
-              <td><button class="action-btn">Schedule</button></td>
-            </tr>
-            <tr>
-              <td><div style="font-weight:500">Aisha Begum</div><div style="font-size:11px;color:var(--muted)">21CS062</div></td>
-              <td style="font-weight:600;color:var(--red)">71</td>
-              <td><span class="risk-badge risk-high">High</span></td>
-              <td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td>
-              <td><button class="action-btn">Schedule</button></td>
-            </tr>
+            <tr><td><div style="font-weight:500">Arjun Krishnan</div><div style="font-size:11px;color:var(--muted)">21CS047</div></td><td style="font-weight:600;color:var(--red)">87</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td><td><span class="badge badge-amber">Pending</span></td><td><button class="action-btn" onclick="scheduleFor(this, 'Arjun Krishnan')">Schedule</button></td></tr>
+            <tr><td><div style="font-weight:500">Priya Mehta</div><div style="font-size:11px;color:var(--muted)">21CS031</div></td><td style="font-weight:600;color:var(--red)">78</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Dr. D. Kumar</td><td><span class="badge badge-amber">Pending</span></td><td><button class="action-btn" onclick="scheduleFor(this, 'Priya Mehta')">Schedule</button></td></tr>
+            <tr><td><div style="font-weight:500">Karan Patel</div><div style="font-size:11px;color:var(--muted)">21CS019</div></td><td style="font-weight:600;color:var(--red)">74</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td><td><span class="badge badge-green">Scheduled</span></td><td><button class="action-btn" onclick="markRecovered(this, 'Karan Patel')">Mark Recovered</button></td></tr>
+            <tr><td><div style="font-weight:500">Aisha Begum</div><div style="font-size:11px;color:var(--muted)">21CS062</div></td><td style="font-weight:600;color:var(--red)">71</td><td><span class="risk-badge risk-high">High</span></td><td style="font-size:12px;color:var(--muted)">Prof. S. Iyer</td><td><span class="badge badge-amber">Pending</span></td><td><button class="action-btn" onclick="scheduleFor(this, 'Aisha Begum')">Schedule</button></td></tr>
           </tbody>
         </table>
       </div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Upcoming Sessions</div>
-        <span style="font-size:12px;color:var(--purple);cursor:pointer">View all</span>
+  <div id="sec-sessions" class="page-section">
+    <div class="topbar"><div><div class="page-title">Sessions</div><div class="page-sub">All counseling sessions</div></div><button class="btn btn-purple" onclick="openScheduleModal()">+ New Session</button></div>
+    <div class="card" id="sessionsCard">
+      <div class="card-header"><div class="card-title">Session Calendar — April 2026</div></div>
+      <div class="card-body" id="sessionsAll">
+        <div class="session-item"><div class="session-time"><div class="session-date">14</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Rahul Sharma · 2:00 PM</div><div class="session-note">Follow-up — medium risk monitoring</div></div><span class="session-status status-upcoming">Upcoming</span></div>
+        <div class="session-item"><div class="session-time"><div class="session-date">15</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Arjun Krishnan · 10:00 AM</div><div class="session-note">First session — high burnout risk (87)</div></div><span class="session-status status-upcoming">Upcoming</span></div>
+        <div class="session-item"><div class="session-time"><div class="session-date">16</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Priya Mehta · 3:30 PM</div><div class="session-note">Stress management consultation</div></div><span class="session-status status-upcoming">Upcoming</span></div>
+        <div class="session-item"><div class="session-time"><div class="session-date">11</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Vikram Rao · 11:00 AM</div><div class="session-note">Recovery check — marked recovered</div></div><span class="session-status status-done">Completed</span></div>
+        <div class="session-item"><div class="session-time"><div class="session-date">9</div><div class="session-mon">Apr</div></div><div class="session-info"><div class="session-name">Sneha Nair · 3:00 PM</div><div class="session-note">Stress management techniques</div></div><span class="session-status status-done">Completed</span></div>
       </div>
-      <div class="card-body">
-        <div class="session-item">
-          <div class="session-time">
-            <div class="session-date">14</div>
-            <div class="session-mon">Apr</div>
-          </div>
-          <div class="session-info">
-            <div class="session-name">Rahul Sharma · 2:00 PM</div>
-            <div class="session-note">Follow-up — medium risk monitoring</div>
-          </div>
-          <span class="session-status status-upcoming">Upcoming</span>
+    </div>
+  </div>
+
+  <div id="sec-notes" class="page-section">
+    <div class="topbar"><div><div class="page-title">Case Notes</div></div><button class="btn btn-purple" onclick="addNote()">+ Add Note</button></div>
+    <div style="display:flex;flex-direction:column;gap:14px" id="notesList">
+      <div class="card" style="overflow:visible">
+        <div class="card-header"><div class="card-title">Arjun Krishnan — 21CS047</div><span style="font-size:12px;color:var(--muted)">Apr 12, 2026</span></div>
+        <div style="padding:16px 20px;font-size:13px;line-height:1.7;color:var(--text)">Student appears highly stressed. Mentioned difficulty sleeping and loss of appetite. Study hours exceeding 12h/day. Recommended immediate workload reduction and referred to psychiatry for evaluation. Follow-up scheduled for Apr 15.</div>
+      </div>
+      <div class="card" style="overflow:visible">
+        <div class="card-header"><div class="card-title">Vikram Rao — 21CS074</div><span style="font-size:12px;color:var(--muted)">Apr 11, 2026</span></div>
+        <div style="padding:16px 20px;font-size:13px;line-height:1.7;color:var(--text)">Student showing significant improvement. Study hours normalized to 28h/week. Stress levels down from 7/10 to 3/10. Burnout score reduced from 68 to 22. Marked as recovered. Continue monthly check-ins.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-recovery" class="page-section">
+    <div class="topbar"><div><div class="page-title">Recovery Tracker</div><div class="page-sub">Monitor student progress after intervention</div></div></div>
+    <div class="card" style="overflow:visible">
+      <div class="card-header"><div class="card-title">Students In Recovery (9)</div></div>
+      <table>
+        <thead><tr><th>Student</th><th>Initial Score</th><th>Current Score</th><th>Improvement</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><div style="font-weight:500">Vikram Rao</div><div style="font-size:11px;color:var(--muted)">21CS074</div></td><td style="color:var(--red);font-weight:600">68</td><td style="color:var(--green);font-weight:600">22</td><td><span style="background:var(--green-light);color:var(--green);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">↓ 46 pts</span></td><td><span class="badge badge-green">Recovered</span></td></tr>
+          <tr><td><div style="font-weight:500">Riya Desai</div><div style="font-size:11px;color:var(--muted)">21CS028</div></td><td style="color:var(--red);font-weight:600">75</td><td style="color:var(--amber);font-weight:600">45</td><td><span style="background:var(--green-light);color:var(--green);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">↓ 30 pts</span></td><td><span class="badge badge-amber">Improving</span></td></tr>
+          <tr><td><div style="font-weight:500">Suresh Kumar</div><div style="font-size:11px;color:var(--muted)">21CS035</div></td><td style="color:var(--amber);font-weight:600">72</td><td style="color:var(--green);font-weight:600">31</td><td><span style="background:var(--green-light);color:var(--green);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">↓ 41 pts</span></td><td><span class="badge badge-green">Recovered</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="sec-reports" class="page-section">
+    <div class="topbar"><div><div class="page-title">Reports</div></div></div>
+    <div class="card" style="overflow:visible">
+      <div class="card-header"><div class="card-title">Available Reports</div></div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--surface);border-radius:10px">
+          <div><div style="font-weight:500;font-size:14px">Monthly Counseling Report</div><div style="font-size:12px;color:var(--muted)">April 2026 — 128 sessions</div></div>
+          <button class="btn" onclick="downloadRep()">📥 Download</button>
         </div>
-        <div class="session-item">
-          <div class="session-time">
-            <div class="session-date">15</div>
-            <div class="session-mon">Apr</div>
-          </div>
-          <div class="session-info">
-            <div class="session-name">Arjun Krishnan · 10:00 AM</div>
-            <div class="session-note">First session — high burnout risk (87)</div>
-          </div>
-          <span class="session-status status-upcoming">Upcoming</span>
-        </div>
-        <div class="session-item">
-          <div class="session-time">
-            <div class="session-date">16</div>
-            <div class="session-mon">Apr</div>
-          </div>
-          <div class="session-info">
-            <div class="session-name">Priya Mehta · 3:30 PM</div>
-            <div class="session-note">Stress management consultation</div>
-          </div>
-          <span class="session-status status-upcoming">Upcoming</span>
-        </div>
-        <div class="session-item">
-          <div class="session-time">
-            <div class="session-date">11</div>
-            <div class="session-mon">Apr</div>
-          </div>
-          <div class="session-info">
-            <div class="session-name">Vikram Rao · 11:00 AM</div>
-            <div class="session-note">Recovery check — marked recovered</div>
-          </div>
-          <span class="session-status status-done">Completed</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--surface);border-radius:10px">
+          <div><div style="font-weight:500;font-size:14px">Recovery Progress Report</div><div style="font-size:12px;color:var(--muted)">9 students in recovery</div></div>
+          <button class="btn" onclick="downloadRep()">📥 Download</button>
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<!-- Schedule Modal -->
+<div class="modal-overlay" id="scheduleModal">
+  <div class="modal">
+    <div class="modal-title">Schedule Counseling Session</div>
+    <div class="modal-sub">Book a session with a referred student</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="form-group">
+        <label>Student</label>
+        <select id="schedStudent">
+          <option>Arjun Krishnan — 21CS047</option>
+          <option>Priya Mehta — 21CS031</option>
+          <option>Karan Patel — 21CS019</option>
+          <option>Aisha Begum — 21CS062</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Date</label><input type="date" id="schedDate" value="2026-04-17"></div>
+      <div class="form-group"><label>Time</label><input type="time" id="schedTime" value="10:00"></div>
+      <div class="form-group"><label>Notes</label><input type="text" id="schedNotes" placeholder="Session purpose / notes"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-purple" onclick="confirmSchedule()">Confirm Session</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toastMsg">Done!</span></div>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const now = new Date();
+document.getElementById('dateDisplay').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+function showSection(name, el) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+function scheduleFor(btn, name) {
+  document.getElementById('schedStudent').value = name;
+  openScheduleModal();
+}
+
+function openScheduleModal() {
+  document.getElementById('scheduleModal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('scheduleModal').classList.remove('open');
+}
+function confirmSchedule() {
+  const student = document.getElementById('schedStudent').value.split('—')[0].trim();
+  const date = document.getElementById('schedDate').value;
+  const time = document.getElementById('schedTime').value;
+  const notes = document.getElementById('schedNotes').value || 'Initial consultation';
+
+  const [year, month, day] = date.split('-');
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  const newSession = `<div class="session-item"><div class="session-time"><div class="session-date">${parseInt(day)}</div><div class="session-mon">${monthNames[parseInt(month)-1]}</div></div><div class="session-info"><div class="session-name">${student} · ${time}</div><div class="session-note">${notes}</div></div><span class="session-status status-upcoming">Upcoming</span></div>`;
+
+  document.getElementById('sessionsPreview').innerHTML = newSession + document.getElementById('sessionsPreview').innerHTML;
+  if (document.getElementById('sessionsAll')) {
+    document.getElementById('sessionsAll').innerHTML = newSession + document.getElementById('sessionsAll').innerHTML;
+  }
+  closeModal();
+  showToast(`Session scheduled with ${student} on ${day} ${monthNames[parseInt(month)-1]}`, 'success');
+}
+
+function markRecovered(btn, name) {
+  btn.textContent = '✓ Recovered';
+  btn.style.borderColor = 'var(--green)';
+  btn.style.color = 'var(--green)';
+  btn.disabled = true;
+  const count = parseInt(document.getElementById('recoveryCount').textContent);
+  document.getElementById('recoveryCount').textContent = count + 1;
+  const ref = parseInt(document.getElementById('referralCount').textContent);
+  document.getElementById('referralCount').textContent = Math.max(0, ref - 1);
+  showToast(`${name} marked as recovered!`, 'success');
+}
+
+function addNote() {
+  const student = prompt('Student name:');
+  if (!student) return;
+  const note = prompt('Session notes:');
+  if (!note) return;
+  const today = new Date();
+  const list = document.getElementById('notesList');
+  const item = document.createElement('div');
+  item.className = 'card';
+  item.style.overflow = 'visible';
+  item.innerHTML = `<div class="card-header"><div class="card-title">${student}</div><span style="font-size:12px;color:var(--muted)">${today.toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'})}</span></div><div style="padding:16px 20px;font-size:13px;line-height:1.7;color:var(--text)">${note}</div>`;
+  if (list) list.insertBefore(item, list.firstChild);
+  showToast('Note added!', 'success');
+}
+
+function downloadRep() {
+  showToast('📥 Generating report...', 'info');
+  setTimeout(() => showToast('Report downloaded!', 'success'), 1500);
+}
+
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+document.getElementById('scheduleModal').addEventListener('click', e => { if (e.target === document.getElementById('scheduleModal')) closeModal(); });
+</script>
 </body>
 </html>
