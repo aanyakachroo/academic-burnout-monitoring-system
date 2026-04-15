@@ -14,8 +14,7 @@
   --text: #0f1b2d; --muted: #6b7a8f; --border: #dde3ed; --surface: #f6f8fc; --white: #fff;
 }
 body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; display: flex; }
-
-.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; }
+.sidebar { width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px; display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
 .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 0 8px; }
 .logo-icon { width: 34px; height: 34px; background: var(--blue); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
 .logo-icon svg { width: 18px; height: 18px; }
@@ -30,15 +29,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .avatar { width: 34px; height: 34px; border-radius: 50%; background: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
 .user-name { font-size: 13px; color: #fff; font-weight: 500; }
 .user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
-
 .main { margin-left: 240px; flex: 1; padding: 32px 36px; }
 .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
 .page-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--text); }
 .page-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
 .btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); transition: all 0.15s; }
+.btn:hover { border-color: var(--blue); color: var(--blue); }
 .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-/* STAT CARDS */
+.btn-primary:hover { background: #1558d6; border-color: #1558d6; color: #fff; }
 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
 .stat-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 20px; }
 .stat-icon { font-size: 22px; margin-bottom: 12px; }
@@ -49,26 +47,21 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .badge-amber { background: var(--amber-light); color: var(--amber); }
 .badge-green { background: var(--green-light); color: var(--green); }
 .badge-blue { background: var(--blue-light); color: var(--blue); }
-
-/* STUDENT TABLE */
 .card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1.5px solid var(--border); }
 .card-title { font-size: 15px; font-weight: 600; }
 .card-actions { display: flex; gap: 8px; }
 .search-box { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 9px; padding: 7px 12px; }
 .search-box input { border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); outline: none; width: 160px; }
-
 table { width: 100%; border-collapse: collapse; }
 th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; padding: 12px 22px; text-align: left; background: var(--surface); border-bottom: 1.5px solid var(--border); }
 td { padding: 14px 22px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: middle; }
 tr:last-child td { border-bottom: none; }
 tr:hover td { background: var(--surface); }
-
 .student-cell { display: flex; align-items: center; gap: 10px; }
 .s-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #fff; flex-shrink: 0; }
 .s-name { font-weight: 500; color: var(--text); }
 .s-id { font-size: 11px; color: var(--muted); }
-
 .risk-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
 .risk-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
 .risk-high { background: var(--red-light); color: var(--red); }
@@ -77,20 +70,23 @@ tr:hover td { background: var(--surface); }
 .risk-medium::before { background: var(--amber); }
 .risk-low { background: var(--green-light); color: var(--green); }
 .risk-low::before { background: var(--green); }
-
 .score-bar-wrap { display: flex; align-items: center; gap: 10px; }
 .score-bar { width: 80px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
 .score-fill { height: 100%; border-radius: 3px; }
 .fill-red { background: var(--red); }
 .fill-amber { background: var(--amber); }
 .fill-green { background: var(--green); }
-
 .action-btn { padding: 5px 12px; border-radius: 7px; font-size: 12px; border: 1.5px solid var(--border); background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif; color: var(--text); transition: all 0.15s; }
 .action-btn:hover { border-color: var(--blue); color: var(--blue); }
+.toast { position: fixed; bottom: 32px; right: 32px; background: var(--navy); color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 999; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.info { background: var(--blue); }
+.page-section { display: none; }
+.page-section.active { display: block; }
 </style>
 </head>
 <body>
-
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-icon">
@@ -101,138 +97,280 @@ tr:hover td { background: var(--surface); }
     </div>
     <div class="logo-name">AcadWatch</div>
   </div>
-  <a class="nav-item active"><span class="nav-icon">📊</span> Overview</a>
-  <a class="nav-item"><span class="nav-icon">👥</span> My Students</a>
-  <a class="nav-item"><span class="nav-icon">⚠️</span> At-Risk Students</a>
-  <a class="nav-item"><span class="nav-icon">📈</span> Trends</a>
+  <a class="nav-item active" onclick="showSection('overview', this)"><span class="nav-icon">📊</span> Overview</a>
+  <a class="nav-item" onclick="showSection('students', this)"><span class="nav-icon">👥</span> My Students</a>
+  <a class="nav-item" onclick="showSection('atrisk', this)"><span class="nav-icon">⚠️</span> At-Risk Students</a>
+  <a class="nav-item" onclick="showSection('trends', this)"><span class="nav-icon">📈</span> Trends</a>
   <div class="nav-section">Actions</div>
-  <a class="nav-item"><span class="nav-icon">📢</span> Send Advisory</a>
-  <a class="nav-item"><span class="nav-icon">📄</span> Reports</a>
-  <a class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+  <a class="nav-item" onclick="sendAdvisory()"><span class="nav-icon">📢</span> Send Advisory</a>
+  <a class="nav-item" onclick="showSection('reports', this)"><span class="nav-icon">📄</span> Reports</a>
+  <a class="nav-item" onclick="showSection('settings', this)"><span class="nav-icon">⚙️</span> Settings</a>
+  <a class="nav-item" style="margin-top:8px;" onclick="window.location.href='login.html'"><span class="nav-icon">🚪</span> Logout</a>
   <div class="sidebar-footer">
     <div class="user-info">
       <div class="avatar">DK</div>
-      <div>
-        <div class="user-name">Dr. D. Kumar</div>
-        <div class="user-role">Faculty · CSE Dept.</div>
-      </div>
+      <div><div class="user-name">Dr. D. Kumar</div><div class="user-role">Faculty · CSE Dept.</div></div>
     </div>
   </div>
 </aside>
 
 <main class="main">
-  <div class="topbar">
-    <div>
-      <div class="page-title">Faculty Overview</div>
-      <div class="page-sub">Monday, 12 April 2026 · CSE Department</div>
-    </div>
-    <div style="display:flex;gap:10px;">
-      <button class="btn">📤 Export Report</button>
-      <button class="btn btn-primary">📢 Send Advisory</button>
-    </div>
-  </div>
-
-  <div class="stat-row">
-    <div class="stat-card">
-      <div class="stat-icon">👥</div>
-      <div class="stat-val">148</div>
-      <div class="stat-label">Total students assigned</div>
-      <div class="stat-badge badge-blue">↑ 6 this month</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">🚨</div>
-      <div class="stat-val" style="color:var(--red)">14</div>
-      <div class="stat-label">High burnout risk</div>
-      <div class="stat-badge badge-red">Needs immediate action</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">⚠️</div>
-      <div class="stat-val" style="color:var(--amber)">37</div>
-      <div class="stat-label">Medium risk students</div>
-      <div class="stat-badge badge-amber">Monitor closely</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">✅</div>
-      <div class="stat-val" style="color:var(--green)">97</div>
-      <div class="stat-label">Low / no risk</div>
-      <div class="stat-badge badge-green">On track</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title">Student Workload Monitor</div>
-      <div class="card-actions">
-        <div class="search-box">
-          <span style="color:var(--muted);font-size:14px">🔍</span>
-          <input type="text" placeholder="Search students...">
-        </div>
-        <select style="border:1.5px solid var(--border);border-radius:9px;padding:7px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;background:var(--white);outline:none;">
-          <option>All Risk Levels</option>
-          <option>High Risk</option>
-          <option>Medium Risk</option>
-          <option>Low Risk</option>
-        </select>
+  <div id="sec-overview" class="page-section active">
+    <div class="topbar">
+      <div><div class="page-title">Faculty Overview</div><div class="page-sub" id="dateDisplay">Loading...</div></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn" onclick="exportReport()">📤 Export Report</button>
+        <button class="btn btn-primary" onclick="sendAdvisory()">📢 Send Advisory</button>
       </div>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Student</th>
-          <th>Study Hrs / Week</th>
-          <th>Pending Tasks</th>
-          <th>Stress Level</th>
-          <th>Burnout Score</th>
-          <th>Risk Level</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="student-cell"><div class="s-avatar" style="background:#dc2626">AK</div><div><div class="s-name">Arjun Krishnan</div><div class="s-id">21CS047</div></div></div></td>
-          <td>58h</td><td>11</td><td>9/10</td>
-          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-red" style="width:87%"></div></div><span style="font-size:12px;font-weight:500">87</span></div></td>
-          <td><span class="risk-badge risk-high">High</span></td>
-          <td><button class="action-btn">Alert + Refer</button></td>
-        </tr>
-        <tr>
-          <td><div class="student-cell"><div class="s-avatar" style="background:#d97706">PM</div><div><div class="s-name">Priya Mehta</div><div class="s-id">21CS031</div></div></div></td>
-          <td>51h</td><td>9</td><td>8/10</td>
-          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-red" style="width:78%"></div></div><span style="font-size:12px;font-weight:500">78</span></div></td>
-          <td><span class="risk-badge risk-high">High</span></td>
-          <td><button class="action-btn">Alert + Refer</button></td>
-        </tr>
-        <tr>
-          <td><div class="student-cell"><div class="s-avatar" style="background:#0f1b2d">RS</div><div><div class="s-name">Rahul Sharma</div><div class="s-id">21CS012</div></div></div></td>
-          <td>42h</td><td>8</td><td>6/10</td>
-          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-amber" style="width:55%"></div></div><span style="font-size:12px;font-weight:500">55</span></div></td>
-          <td><span class="risk-badge risk-medium">Medium</span></td>
-          <td><button class="action-btn">Send Advisory</button></td>
-        </tr>
-        <tr>
-          <td><div class="student-cell"><div class="s-avatar" style="background:#7c3aed">SN</div><div><div class="s-name">Sneha Nair</div><div class="s-id">21CS058</div></div></div></td>
-          <td>38h</td><td>6</td><td>5/10</td>
-          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-amber" style="width:48%"></div></div><span style="font-size:12px;font-weight:500">48</span></div></td>
-          <td><span class="risk-badge risk-medium">Medium</span></td>
-          <td><button class="action-btn">Send Advisory</button></td>
-        </tr>
-        <tr>
-          <td><div class="student-cell"><div class="s-avatar" style="background:#16a34a">VR</div><div><div class="s-name">Vikram Rao</div><div class="s-id">21CS074</div></div></div></td>
-          <td>28h</td><td>3</td><td>3/10</td>
-          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-green" style="width:22%"></div></div><span style="font-size:12px;font-weight:500">22</span></div></td>
-          <td><span class="risk-badge risk-low">Low</span></td>
-          <td><button class="action-btn">View Profile</button></td>
-        </tr>
-        <tr>
-          <td><div class="student-cell"><div class="s-avatar" style="background:#0891b2">DT</div><div><div class="s-name">Divya Thomas</div><div class="s-id">21CS083</div></div></div></td>
-          <td>25h</td><td>2</td><td>2/10</td>
-          <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-green" style="width:18%"></div></div><span style="font-size:12px;font-weight:500">18</span></div></td>
-          <td><span class="risk-badge risk-low">Low</span></td>
-          <td><button class="action-btn">View Profile</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val">148</div><div class="stat-label">Total students assigned</div><div class="stat-badge badge-blue">↑ 6 this month</div></div>
+      <div class="stat-card"><div class="stat-icon">🚨</div><div class="stat-val" style="color:var(--red)" id="highCount">14</div><div class="stat-label">High burnout risk</div><div class="stat-badge badge-red">Needs immediate action</div></div>
+      <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-val" style="color:var(--amber)">37</div><div class="stat-label">Medium risk students</div><div class="stat-badge badge-amber">Monitor closely</div></div>
+      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" style="color:var(--green)" id="lowCount">97</div><div class="stat-label">Low / no risk</div><div class="stat-badge badge-green">On track</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Student Workload Monitor</div>
+        <div class="card-actions">
+          <div class="search-box">
+            <span style="color:var(--muted);font-size:14px">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search students..." oninput="filterStudents(this.value)">
+          </div>
+          <select id="riskFilter" onchange="filterStudents(document.getElementById('searchInput').value)" style="border:1.5px solid var(--border);border-radius:9px;padding:7px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;background:var(--white);outline:none;">
+            <option>All Risk Levels</option>
+            <option>High Risk</option>
+            <option>Medium Risk</option>
+            <option>Low Risk</option>
+          </select>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Student</th><th>Study Hrs / Week</th><th>Pending Tasks</th><th>Stress Level</th><th>Burnout Score</th><th>Risk Level</th><th>Action</th></tr>
+        </thead>
+        <tbody id="studentTable">
+          <tr data-risk="high" data-name="arjun krishnan">
+            <td><div class="student-cell"><div class="s-avatar" style="background:#dc2626">AK</div><div><div class="s-name">Arjun Krishnan</div><div class="s-id">21CS047</div></div></div></td>
+            <td>58h</td><td>11</td><td>9/10</td>
+            <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-red" style="width:87%"></div></div><span style="font-size:12px;font-weight:500">87</span></div></td>
+            <td><span class="risk-badge risk-high">High</span></td>
+            <td><button class="action-btn" onclick="alertRefer(this, 'Arjun Krishnan')">Alert + Refer</button></td>
+          </tr>
+          <tr data-risk="high" data-name="priya mehta">
+            <td><div class="student-cell"><div class="s-avatar" style="background:#d97706">PM</div><div><div class="s-name">Priya Mehta</div><div class="s-id">21CS031</div></div></div></td>
+            <td>51h</td><td>9</td><td>8/10</td>
+            <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-red" style="width:78%"></div></div><span style="font-size:12px;font-weight:500">78</span></div></td>
+            <td><span class="risk-badge risk-high">High</span></td>
+            <td><button class="action-btn" onclick="alertRefer(this, 'Priya Mehta')">Alert + Refer</button></td>
+          </tr>
+          <tr data-risk="medium" data-name="rahul sharma">
+            <td><div class="student-cell"><div class="s-avatar" style="background:#0f1b2d">RS</div><div><div class="s-name">Rahul Sharma</div><div class="s-id">21CS012</div></div></div></td>
+            <td>42h</td><td>8</td><td>6/10</td>
+            <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-amber" style="width:55%"></div></div><span style="font-size:12px;font-weight:500">55</span></div></td>
+            <td><span class="risk-badge risk-medium">Medium</span></td>
+            <td><button class="action-btn" onclick="sendStudentAdvisory(this, 'Rahul Sharma')">Send Advisory</button></td>
+          </tr>
+          <tr data-risk="medium" data-name="sneha nair">
+            <td><div class="student-cell"><div class="s-avatar" style="background:#7c3aed">SN</div><div><div class="s-name">Sneha Nair</div><div class="s-id">21CS058</div></div></div></td>
+            <td>38h</td><td>6</td><td>5/10</td>
+            <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-amber" style="width:48%"></div></div><span style="font-size:12px;font-weight:500">48</span></div></td>
+            <td><span class="risk-badge risk-medium">Medium</span></td>
+            <td><button class="action-btn" onclick="sendStudentAdvisory(this, 'Sneha Nair')">Send Advisory</button></td>
+          </tr>
+          <tr data-risk="low" data-name="vikram rao">
+            <td><div class="student-cell"><div class="s-avatar" style="background:#16a34a">VR</div><div><div class="s-name">Vikram Rao</div><div class="s-id">21CS074</div></div></div></td>
+            <td>28h</td><td>3</td><td>3/10</td>
+            <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-green" style="width:22%"></div></div><span style="font-size:12px;font-weight:500">22</span></div></td>
+            <td><span class="risk-badge risk-low">Low</span></td>
+            <td><button class="action-btn" onclick="viewProfile('Vikram Rao')">View Profile</button></td>
+          </tr>
+          <tr data-risk="low" data-name="divya thomas">
+            <td><div class="student-cell"><div class="s-avatar" style="background:#0891b2">DT</div><div><div class="s-name">Divya Thomas</div><div class="s-id">21CS083</div></div></div></td>
+            <td>25h</td><td>2</td><td>2/10</td>
+            <td><div class="score-bar-wrap"><div class="score-bar"><div class="score-fill fill-green" style="width:18%"></div></div><span style="font-size:12px;font-weight:500">18</span></div></td>
+            <td><span class="risk-badge risk-low">Low</span></td>
+            <td><button class="action-btn" onclick="viewProfile('Divya Thomas')">View Profile</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="sec-students" class="page-section">
+    <div class="topbar"><div><div class="page-title">My Students</div><div class="page-sub">All 148 students in your section</div></div></div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Student Directory — CSE III</div></div>
+      <div style="padding:20px;font-size:13px;color:var(--muted)">Showing 6 of 148 students. Use the search on the Overview tab to filter.</div>
+    </div>
+  </div>
+
+  <div id="sec-atrisk" class="page-section">
+    <div class="topbar"><div><div class="page-title">At-Risk Students</div><div class="page-sub">Students requiring immediate attention</div></div></div>
+    <div class="stat-row" style="grid-template-columns:repeat(2,1fr)">
+      <div class="stat-card"><div class="stat-icon">🚨</div><div class="stat-val" style="color:var(--red)">14</div><div class="stat-label">High risk students</div><div class="stat-badge badge-red">Immediate action needed</div></div>
+      <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-val" style="color:var(--amber)">37</div><div class="stat-label">Medium risk students</div><div class="stat-badge badge-amber">Monitor closely</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">High Risk — Immediate Action Required</div></div>
+      <table>
+        <thead><tr><th>Student</th><th>Score</th><th>Risk</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><div class="student-cell"><div class="s-avatar" style="background:#dc2626">AK</div><div><div class="s-name">Arjun Krishnan</div><div class="s-id">21CS047</div></div></div></td><td style="font-weight:600;color:var(--red)">87</td><td><span class="risk-badge risk-high">High</span></td><td><button class="action-btn" onclick="alertRefer(this, 'Arjun Krishnan')">Alert + Refer to Counselor</button></td></tr>
+          <tr><td><div class="student-cell"><div class="s-avatar" style="background:#d97706">PM</div><div><div class="s-name">Priya Mehta</div><div class="s-id">21CS031</div></div></div></td><td style="font-weight:600;color:var(--red)">78</td><td><span class="risk-badge risk-high">High</span></td><td><button class="action-btn" onclick="alertRefer(this, 'Priya Mehta')">Alert + Refer to Counselor</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="sec-trends" class="page-section">
+    <div class="topbar"><div><div class="page-title">Burnout Trends</div><div class="page-sub">Department-wide analytics — April 2026</div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="card" style="overflow:visible">
+        <div class="card-header"><div class="card-title">Risk Distribution This Week</div></div>
+        <div style="padding:20px;display:flex;gap:20px;align-items:center">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#fee2e2" stroke-width="20"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#dc2626" stroke-width="20" stroke-dasharray="44 270" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#fef3c7" stroke-width="20" stroke-dasharray="117 270" stroke-dashoffset="-44" transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#dcfce7" stroke-width="20" stroke-dasharray="209 270" stroke-dashoffset="-161" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div style="font-size:13px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:50%;background:var(--red)"></div>High Risk: 14 (9.5%)</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:50%;background:var(--amber)"></div>Medium: 37 (25%)</div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:50%;background:var(--green)"></div>Low Risk: 97 (65.5%)</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Weekly Burnout Score Trend</div></div>
+        <div style="padding:20px">
+          <svg width="100%" height="120" viewBox="0 0 300 120">
+            <polyline fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,80 50,70 100,85 150,60 200,55 250,50 300,45"/>
+            <circle cx="0" cy="80" r="4" fill="var(--blue)"/>
+            <circle cx="50" cy="70" r="4" fill="var(--blue)"/>
+            <circle cx="100" cy="85" r="4" fill="var(--blue)"/>
+            <circle cx="150" cy="60" r="4" fill="var(--blue)"/>
+            <circle cx="200" cy="55" r="4" fill="var(--blue)"/>
+            <circle cx="250" cy="50" r="4" fill="var(--blue)"/>
+            <circle cx="300" cy="45" r="4" fill="var(--red)"/>
+            <text x="0" y="110" font-size="9" fill="#6b7a8f" font-family="DM Sans">Apr 6</text>
+            <text x="240" y="110" font-size="9" fill="#6b7a8f" font-family="DM Sans">Apr 12</text>
+          </svg>
+          <div style="font-size:12px;color:var(--red);margin-top:4px">↑ Average burnout score rising — intervention recommended</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-reports" class="page-section">
+    <div class="topbar"><div><div class="page-title">Reports</div><div class="page-sub">Generate and download burnout reports</div></div></div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Available Reports</div></div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--surface);border-radius:10px">
+          <div><div style="font-weight:500;font-size:14px">Weekly Burnout Summary</div><div style="font-size:12px;color:var(--muted)">Apr 6 – Apr 12, 2026</div></div>
+          <button class="btn" onclick="exportReport()">📥 Download</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--surface);border-radius:10px">
+          <div><div style="font-weight:500;font-size:14px">High-Risk Student Report</div><div style="font-size:12px;color:var(--muted)">14 students flagged this week</div></div>
+          <button class="btn" onclick="exportReport()">📥 Download</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--surface);border-radius:10px">
+          <div><div style="font-weight:500;font-size:14px">Monthly Department Report</div><div style="font-size:12px;color:var(--muted)">March 2026 — Full Analysis</div></div>
+          <button class="btn" onclick="exportReport()">📥 Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-settings" class="page-section">
+    <div class="topbar"><div><div class="page-title">Settings</div></div></div>
+    <div class="card" style="overflow:visible;max-width:500px">
+      <div class="card-header"><div class="card-title">Faculty Profile</div></div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+        <div><label style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;display:block;margin-bottom:6px">Name</label><input type="text" value="Dr. D. Kumar" style="width:100%;height:38px;border:1.5px solid var(--border);border-radius:8px;padding:0 12px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"></div>
+        <div><label style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;display:block;margin-bottom:6px">Email</label><input type="email" value="faculty@college.edu" style="width:100%;height:38px;border:1.5px solid var(--border);border-radius:8px;padding:0 12px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"></div>
+        <button class="btn btn-primary" style="align-self:flex-start" onclick="showToast('Profile saved!', 'success')">Save Changes</button>
+      </div>
+    </div>
   </div>
 </main>
+
+<div class="toast" id="toast"><span id="toastMsg">Done!</span></div>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const now = new Date();
+document.getElementById('dateDisplay').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} · CSE Department`;
+
+function showSection(name, el) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+function filterStudents(query) {
+  const filter = document.getElementById('riskFilter').value;
+  const q = query.toLowerCase();
+  document.querySelectorAll('#studentTable tr').forEach(row => {
+    const name = row.dataset.name || '';
+    const risk = row.dataset.risk || '';
+    const nameMatch = name.includes(q);
+    const riskMatch = filter === 'All Risk Levels' || filter.toLowerCase().includes(risk);
+    row.style.display = (nameMatch && riskMatch) ? '' : 'none';
+  });
+}
+
+function alertRefer(btn, name) {
+  btn.textContent = '⏳ Sending...';
+  btn.disabled = true;
+  btn.style.color = 'var(--amber)';
+  setTimeout(() => {
+    btn.textContent = '✓ Referred';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+    const high = parseInt(document.getElementById('highCount').textContent);
+    document.getElementById('highCount').textContent = Math.max(0, high - 1);
+    document.getElementById('lowCount').textContent = parseInt(document.getElementById('lowCount').textContent) + 1;
+    showToast(`${name} referred to counselor & alerted`, 'success');
+  }, 1000);
+}
+
+function sendStudentAdvisory(btn, name) {
+  btn.textContent = '⏳ Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '✓ Advisory Sent';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+    showToast(`Advisory sent to ${name}`, 'success');
+  }, 800);
+}
+
+function viewProfile(name) {
+  showToast(`Opening profile: ${name}`, 'info');
+}
+
+function sendAdvisory() {
+  const msg = prompt('Enter advisory message to send to all at-risk students:');
+  if (msg) { showToast('Advisory sent to 51 at-risk students', 'success'); }
+}
+
+function exportReport() {
+  showToast('📥 Generating report...', 'info');
+  setTimeout(() => showToast('Report downloaded!', 'success'), 1500);
+}
+
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
 </body>
 </html>
