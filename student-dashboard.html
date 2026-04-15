@@ -8,94 +8,59 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy: #0f1b2d;
-  --blue: #1e6fff;
-  --blue-light: #e8f0ff;
-  --accent: #ff6b35;
-  --green: #16a34a;
-  --green-light: #dcfce7;
-  --amber: #d97706;
-  --amber-light: #fef3c7;
-  --red: #dc2626;
-  --red-light: #fee2e2;
-  --text: #0f1b2d;
-  --muted: #6b7a8f;
-  --border: #dde3ed;
-  --surface: #f6f8fc;
-  --white: #fff;
+  --navy: #0f1b2d; --blue: #1e6fff; --blue-light: #e8f0ff; --accent: #ff6b35;
+  --green: #16a34a; --green-light: #dcfce7; --amber: #d97706; --amber-light: #fef3c7;
+  --red: #dc2626; --red-light: #fee2e2; --text: #0f1b2d; --muted: #6b7a8f;
+  --border: #dde3ed; --surface: #f6f8fc; --white: #fff;
 }
 body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); min-height: 100vh; display: flex; }
-
-/* SIDEBAR */
 .sidebar {
   width: 240px; min-height: 100vh; background: var(--navy); padding: 28px 20px;
-  display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column; gap: 8px; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100;
 }
 .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 0 8px; }
 .logo-icon { width: 34px; height: 34px; background: var(--blue); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
 .logo-icon svg { width: 18px; height: 18px; }
 .logo-name { font-family: 'DM Serif Display', serif; color: #fff; font-size: 18px; }
-
 .nav-item {
-  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
-  border-radius: 10px; color: rgba(255,255,255,0.55); font-size: 13.5px;
-  cursor: pointer; transition: all 0.15s; font-weight: 400;
-  text-decoration: none;
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+  color: rgba(255,255,255,0.55); font-size: 13.5px; cursor: pointer; transition: all 0.15s; font-weight: 400; text-decoration: none;
 }
 .nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
 .nav-item.active { background: var(--blue); color: #fff; font-weight: 500; }
 .nav-icon { width: 18px; text-align: center; font-size: 15px; }
 .nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.25); padding: 16px 12px 6px; }
-
 .sidebar-footer { margin-top: auto; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.06); }
 .user-info { display: flex; align-items: center; gap: 10px; }
 .avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
 .user-name { font-size: 13px; color: #fff; font-weight: 500; }
 .user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
-
-/* MAIN */
 .main { margin-left: 240px; flex: 1; padding: 32px 36px; }
-
 .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
 .page-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--text); }
 .page-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
-
 .btn { padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text); transition: all 0.15s; }
 .btn:hover { border-color: var(--blue); color: var(--blue); }
 .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
 .btn-primary:hover { background: #1558d6; border-color: #1558d6; color: #fff; }
-
 .notif-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--white); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; font-size: 16px; }
 .notif-dot { position: absolute; top: 7px; right: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--white); }
-
-/* BURNOUT SCORE CARD */
 .score-section { display: grid; grid-template-columns: 340px 1fr; gap: 20px; margin-bottom: 24px; }
-
-.score-card {
-  background: var(--navy); border-radius: 18px; padding: 28px; color: #fff;
-  position: relative; overflow: hidden;
-}
-.score-card::before {
-  content: ''; position: absolute; top: -60px; right: -60px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: rgba(30,111,255,0.2); pointer-events: none;
-}
+.score-card { background: var(--navy); border-radius: 18px; padding: 28px; color: #fff; position: relative; overflow: hidden; }
+.score-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(30,111,255,0.2); pointer-events: none; }
 .score-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
 .score-ring-wrap { display: flex; align-items: center; gap: 24px; }
 .score-ring { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
 .score-ring svg { transform: rotate(-90deg); }
 .score-ring .bg-circle { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 10; }
-.score-ring .fg-circle { fill: none; stroke-width: 10; stroke-linecap: round; stroke-dasharray: 283; stroke-dashoffset: 127; transition: stroke-dashoffset 1s ease; }
-.score-ring .fg-circle.medium { stroke: var(--accent); }
+.score-ring .fg-circle { fill: none; stroke-width: 10; stroke-linecap: round; stroke-dasharray: 283; transition: stroke-dashoffset 1.2s ease, stroke 0.4s; }
 .score-text-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.score-num { font-size: 28px; font-weight: 600; color: #fff; line-height: 1; }
+.score-num { font-size: 28px; font-weight: 600; color: #fff; line-height: 1; transition: all 0.3s; }
 .score-pct { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
 .score-info { flex: 1; }
-.score-risk { font-size: 22px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+.score-risk { font-size: 22px; font-weight: 600; margin-bottom: 6px; transition: color 0.3s; }
 .score-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
-
-/* METRICS GRID */
 .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .metric-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 20px; }
 .metric-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
@@ -106,23 +71,18 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .metric-trend { font-size: 12px; font-weight: 500; padding: 3px 8px; border-radius: 6px; }
 .trend-up { background: var(--red-light); color: var(--red); }
 .trend-down { background: var(--green-light); color: var(--green); }
-.metric-val { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; }
+.metric-val { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1; transition: all 0.4s; }
 .metric-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .metric-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 14px; }
-.metric-fill { height: 100%; border-radius: 2px; }
-.fill-blue { background: var(--blue); width: 72%; }
-.fill-green { background: var(--green); width: 55%; }
-.fill-amber { background: var(--amber); width: 80%; }
-
-/* SECTION GRID */
+.metric-fill { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
+.fill-blue { background: var(--blue); }
+.fill-green { background: var(--green); }
+.fill-amber { background: var(--amber); }
 .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
-
 .card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 22px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .card-title { font-size: 14px; font-weight: 600; color: var(--text); }
 .card-link { font-size: 12px; color: var(--blue); cursor: pointer; }
-
-/* ACTIVITY LOG */
 .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
 .activity-item:last-child { border-bottom: none; padding-bottom: 0; }
 .act-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
@@ -132,8 +92,6 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .act-dot.green { background: var(--green); }
 .act-text { font-size: 13px; color: var(--text); line-height: 1.5; }
 .act-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-/* ALERTS */
 .alert-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; margin-bottom: 10px; }
 .alert-item:last-child { margin-bottom: 0; }
 .alert-item.amber { background: var(--amber-light); }
@@ -142,22 +100,35 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
 .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
 .alert-text { font-size: 13px; color: var(--text); line-height: 1.5; }
 .alert-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-/* LOG FORM */
 .log-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .form-group label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 500; display: block; margin-bottom: 6px; }
-.form-group input, .form-group select {
-  width: 100%; height: 38px; border: 1.5px solid var(--border); border-radius: 8px;
-  padding: 0 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text);
-  background: var(--white); outline: none;
-}
+.form-group input, .form-group select { width: 100%; height: 38px; border: 1.5px solid var(--border); border-radius: 8px; padding: 0 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+.form-group input:focus { border-color: var(--blue); }
 .form-group.full { grid-column: 1 / -1; }
 .btn-sm { padding: 8px 16px; font-size: 12px; border-radius: 8px; }
+
+/* Toast */
+.toast { position: fixed; bottom: 32px; right: 32px; background: var(--navy); color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 999; display: flex; align-items: center; gap: 10px; }
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.info { background: var(--blue); }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,27,45,0.5); backdrop-filter: blur(4px); z-index: 500; display: none; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: 20px; padding: 32px; width: 460px; box-shadow: 0 24px 60px rgba(15,27,45,0.15); animation: modalIn 0.3s cubic-bezier(0.22,1,0.36,1); }
+@keyframes modalIn { from { opacity:0; transform:scale(0.94) translateY(12px); } to { opacity:1; transform:scale(1) translateY(0); } }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+
+/* Page sections */
+.page-section { display: none; }
+.page-section.active { display: block; }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-icon">
@@ -168,242 +139,455 @@ body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: va
     </div>
     <div class="logo-name">AcadWatch</div>
   </div>
-
-  <a class="nav-item active">
-    <span class="nav-icon">📊</span> Dashboard
-  </a>
-  <a class="nav-item">
-    <span class="nav-icon">📚</span> Study Log
-  </a>
-  <a class="nav-item">
-    <span class="nav-icon">📝</span> Assignments
-  </a>
-  <a class="nav-item">
-    <span class="nav-icon">🧠</span> Burnout Report
-  </a>
-
+  <a class="nav-item active" onclick="showSection('dashboard', this)"><span class="nav-icon">📊</span> Dashboard</a>
+  <a class="nav-item" onclick="showSection('studylog', this)"><span class="nav-icon">📚</span> Study Log</a>
+  <a class="nav-item" onclick="showSection('assignments', this)"><span class="nav-icon">📝</span> Assignments</a>
+  <a class="nav-item" onclick="showSection('burnout', this)"><span class="nav-icon">🧠</span> Burnout Report</a>
   <div class="nav-section">Support</div>
-  <a class="nav-item">
-    <span class="nav-icon">💬</span> Counseling
-  </a>
-  <a class="nav-item">
+  <a class="nav-item" onclick="openCounseling()"><span class="nav-icon">💬</span> Counseling</a>
+  <a class="nav-item" onclick="showSection('alerts', this)">
     <span class="nav-icon">🔔</span> Alerts
-    <span style="margin-left:auto; background:var(--accent); color:#fff; font-size:10px; border-radius:5px; padding:2px 6px;">3</span>
+    <span id="alertBadge" style="margin-left:auto; background:var(--accent); color:#fff; font-size:10px; border-radius:5px; padding:2px 6px;">3</span>
   </a>
-  <a class="nav-item">
-    <span class="nav-icon">⚙️</span> Settings
-  </a>
-
+  <a class="nav-item" onclick="showSection('settings', this)"><span class="nav-icon">⚙️</span> Settings</a>
+  <a class="nav-item" style="margin-top:8px;" onclick="window.location.href='login.html'"><span class="nav-icon">🚪</span> Logout</a>
   <div class="sidebar-footer">
     <div class="user-info">
       <div class="avatar">AK</div>
       <div>
-        <div class="user-name">AANYA KACHROO</div>
+        <div class="user-name">Aanya Kachroo</div>
         <div class="user-role">Student · CSE III</div>
       </div>
     </div>
   </div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
-  <div class="topbar">
-    <div>
-      <div class="page-title">My Dashboard</div>
-      <div class="page-sub">Monday, 12 April 2026 · Semester 6</div>
+  <!-- DASHBOARD -->
+  <div id="sec-dashboard" class="page-section active">
+    <div class="topbar">
+      <div>
+        <div class="page-title">My Dashboard</div>
+        <div class="page-sub" id="dateDisplay">Loading...</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn" onclick="downloadReport()">📥 Download Report</button>
+        <button class="btn btn-primary" onclick="openLogModal()">+ Log Today</button>
+        <div class="notif-btn" onclick="showSection('alerts', document.querySelector('[onclick*=\"alerts\"]'))">🔔<div class="notif-dot" id="notifDot"></div></div>
+      </div>
     </div>
-    <div class="topbar-right">
-      <button class="btn">📥 Download Report</button>
-      <button class="btn btn-primary">+ Log Today</button>
-      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
-    </div>
-  </div>
 
-  <!-- BURNOUT SCORE + METRICS -->
-  <div class="score-section">
-    <div class="score-card">
-      <div class="score-label">Current Burnout Risk</div>
-      <div class="score-ring-wrap">
-        <div class="score-ring">
-          <svg width="110" height="110" viewBox="0 0 110 110">
-            <circle class="bg-circle" cx="55" cy="55" r="45"/>
-            <circle class="fg-circle medium" cx="55" cy="55" r="45"/>
-          </svg>
-          <div class="score-text-center">
-            <div class="score-num">55</div>
-            <div class="score-pct">/ 100</div>
+    <div class="score-section">
+      <div class="score-card">
+        <div class="score-label">Current Burnout Risk</div>
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle class="bg-circle" cx="55" cy="55" r="45"/>
+              <circle class="fg-circle" id="scoreCircle" cx="55" cy="55" r="45" stroke="#ff6b35" stroke-dashoffset="127"/>
+            </svg>
+            <div class="score-text-center">
+              <div class="score-num" id="scoreNum">55</div>
+              <div class="score-pct">/ 100</div>
+            </div>
+          </div>
+          <div class="score-info">
+            <div class="score-risk" id="scoreRisk" style="color:var(--accent)">Medium Risk</div>
+            <div class="score-desc" id="scoreDesc">Your workload is elevated. Consider reducing optional commitments this week.</div>
           </div>
         </div>
-        <div class="score-info">
-          <div class="score-risk">Medium Risk</div>
-          <div class="score-desc">Your workload is elevated. Consider reducing optional commitments this week.</div>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon blue">📖</div>
+            <span class="metric-trend trend-up" id="studyTrend">+12%</span>
+          </div>
+          <div class="metric-val" id="studyHours">42h</div>
+          <div class="metric-label">Study hours this week</div>
+          <div class="metric-bar"><div class="metric-fill fill-blue" id="studyBar" style="width:72%"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon amber">📋</div>
+            <span class="metric-trend trend-up" id="pendingTrend">+3</span>
+          </div>
+          <div class="metric-val" id="pendingCount">8</div>
+          <div class="metric-label">Pending assignments</div>
+          <div class="metric-bar"><div class="metric-fill fill-amber" id="pendingBar" style="width:80%"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-top">
+            <div class="metric-icon green">😌</div>
+            <span class="metric-trend trend-down" id="stressTrend">−5</span>
+          </div>
+          <div class="metric-val" id="stressVal">6/10</div>
+          <div class="metric-label">Stress level today</div>
+          <div class="metric-bar"><div class="metric-fill fill-green" id="stressBar" style="width:55%"></div></div>
         </div>
       </div>
     </div>
 
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-top">
-          <div class="metric-icon blue">📖</div>
-          <span class="metric-trend trend-up">+12%</span>
+    <div class="section-grid">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Log Today's Activity</div></div>
+        <div class="log-form">
+          <div class="form-group">
+            <label>Study Hours</label>
+            <input type="number" id="logStudy" value="6" min="0" max="24">
+          </div>
+          <div class="form-group">
+            <label>Stress Level (1–10)</label>
+            <input type="number" id="logStress" value="6" min="1" max="10">
+          </div>
+          <div class="form-group">
+            <label>Assignments Due</label>
+            <input type="number" id="logAssign" value="2" min="0">
+          </div>
+          <div class="form-group">
+            <label>Tests / Exams</label>
+            <input type="number" id="logTests" value="1" min="0">
+          </div>
+          <div class="form-group full" style="display:flex; justify-content:flex-end; gap:8px;">
+            <button class="btn btn-sm" onclick="clearLog()">Clear</button>
+            <button class="btn btn-primary btn-sm" onclick="saveEntry()">Save Entry</button>
+          </div>
         </div>
-        <div class="metric-val">42h</div>
-        <div class="metric-label">Study hours this week</div>
-        <div class="metric-bar"><div class="metric-fill fill-blue"></div></div>
       </div>
-      <div class="metric-card">
-        <div class="metric-top">
-          <div class="metric-icon amber">📋</div>
-          <span class="metric-trend trend-up">+3</span>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Active Alerts</div>
+          <span class="card-link" onclick="dismissAlerts()">Mark all read</span>
         </div>
-        <div class="metric-val">8</div>
-        <div class="metric-label">Pending assignments</div>
-        <div class="metric-bar"><div class="metric-fill fill-amber"></div></div>
+        <div id="alertsContainer">
+          <div class="alert-item amber"><span class="alert-icon">⚠️</span><div><div class="alert-text">High study load detected — 42h this week exceeds recommended limit.</div><div class="alert-sub">2 hours ago · System</div></div></div>
+          <div class="alert-item red"><span class="alert-icon">🚨</span><div><div class="alert-text">3 assignments due within 48 hours. Prioritize your schedule.</div><div class="alert-sub">Yesterday · Faculty Advisor</div></div></div>
+          <div class="alert-item blue"><span class="alert-icon">💬</span><div><div class="alert-text">Counselor Ms. Priya has invited you to a session on Wednesday.</div><div class="alert-sub">2 days ago · Counseling Dept.</div></div></div>
+        </div>
       </div>
-      <div class="metric-card">
-        <div class="metric-top">
-          <div class="metric-icon green">😌</div>
-          <span class="metric-trend trend-down">−5</span>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Recent Activity</div><span class="card-link">View all</span></div>
+        <div id="activityFeed">
+          <div class="activity-item"><div class="act-dot blue"></div><div><div class="act-text">Logged 8 study hours for DBMS preparation</div><div class="act-time">Today, 9:30 AM</div></div></div>
+          <div class="activity-item"><div class="act-dot amber"></div><div><div class="act-text">Added assignment: Software Engineering Lab Report</div><div class="act-time">Yesterday, 11:15 PM</div></div></div>
+          <div class="activity-item"><div class="act-dot red"></div><div><div class="act-text">Stress level updated to 8/10</div><div class="act-time">Yesterday, 7:00 PM</div></div></div>
+          <div class="activity-item"><div class="act-dot green"></div><div><div class="act-text">Burnout risk report generated — Medium Risk</div><div class="act-time">2 days ago, 6:00 AM</div></div></div>
         </div>
-        <div class="metric-val">6/10</div>
-        <div class="metric-label">Stress level today</div>
-        <div class="metric-bar"><div class="metric-fill fill-green"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Upcoming Deadlines</div><span class="card-link" onclick="addDeadline()">Add new</span></div>
+        <div id="deadlines">
+          <div class="activity-item"><div class="act-dot red"></div><div><div class="act-text" style="font-weight:500">DBMS Internal Exam</div><div class="act-time">Tomorrow · 10:00 AM</div></div></div>
+          <div class="activity-item"><div class="act-dot amber"></div><div><div class="act-text" style="font-weight:500">SE Lab Report Submission</div><div class="act-time">Apr 14 · 11:59 PM</div></div></div>
+          <div class="activity-item"><div class="act-dot amber"></div><div><div class="act-text" style="font-weight:500">OS Assignment #4</div><div class="act-time">Apr 15 · 5:00 PM</div></div></div>
+          <div class="activity-item"><div class="act-dot blue"></div><div><div class="act-text" style="font-weight:500">Counseling Session — Ms. Priya</div><div class="act-time">Apr 16 · 2:00 PM</div></div></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="section-grid">
-    <!-- LOG ACTIVITY -->
+  <!-- STUDY LOG -->
+  <div id="sec-studylog" class="page-section">
+    <div class="topbar"><div><div class="page-title">Study Log</div><div class="page-sub">Track your daily study sessions</div></div></div>
+    <div class="card" style="margin-bottom:20px">
+      <div class="card-header"><div class="card-title">Weekly Summary — April 2026</div></div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Date</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Study Hrs</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Stress</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Assignments</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Burnout Score</th>
+        </tr></thead>
+        <tbody id="studyLogBody">
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border)">Apr 12</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">8h</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">8/10</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">3</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="color:var(--amber);font-weight:600">62</span></td></tr>
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border)">Apr 11</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">7h</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">6/10</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">2</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="color:var(--amber);font-weight:600">55</span></td></tr>
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border)">Apr 10</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">9h</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">9/10</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">4</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="color:var(--red);font-weight:600">78</span></td></tr>
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border)">Apr 9</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">5h</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">4/10</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">1</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="color:var(--green);font-weight:600">32</span></td></tr>
+          <tr><td style="padding:12px 16px">Apr 8</td><td style="padding:12px 16px">6h</td><td style="padding:12px 16px">5/10</td><td style="padding:12px 16px">2</td><td style="padding:12px 16px"><span style="color:var(--green);font-weight:600">41</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ASSIGNMENTS -->
+  <div id="sec-assignments" class="page-section">
+    <div class="topbar"><div><div class="page-title">Assignments</div><div class="page-sub">Track your pending and completed work</div></div><button class="btn btn-primary" onclick="addAssignment()">+ Add Assignment</button></div>
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">Log Today's Activity</div>
+      <div class="card-header"><div class="card-title">Pending (8)</div></div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;" id="assignTable">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Assignment</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Subject</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Due Date</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Status</th>
+          <th style="padding:10px 16px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;">Action</th>
+        </tr></thead>
+        <tbody id="assignBody">
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:500">DBMS Internal Exam</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">DBMS</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--red);font-weight:500">Apr 13</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="background:var(--red-light);color:var(--red);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">Urgent</span></td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><button class="btn btn-sm" style="font-size:11px;padding:5px 10px" onclick="markDone(this)">Mark Done</button></td></tr>
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:500">SE Lab Report</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">Software Engg.</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--amber);font-weight:500">Apr 14</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="background:var(--amber-light);color:var(--amber);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">Pending</span></td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><button class="btn btn-sm" style="font-size:11px;padding:5px 10px" onclick="markDone(this)">Mark Done</button></td></tr>
+          <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:500">OS Assignment #4</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)">Operating Systems</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--amber);font-weight:500">Apr 15</td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><span style="background:var(--amber-light);color:var(--amber);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">Pending</span></td><td style="padding:12px 16px;border-bottom:1px solid var(--border)"><button class="btn btn-sm" style="font-size:11px;padding:5px 10px" onclick="markDone(this)">Mark Done</button></td></tr>
+          <tr><td style="padding:12px 16px;font-weight:500">CN Quiz Prep</td><td style="padding:12px 16px">Computer Networks</td><td style="padding:12px 16px;color:var(--blue);font-weight:500">Apr 17</td><td style="padding:12px 16px"><span style="background:var(--blue-light);color:var(--blue);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">Upcoming</span></td><td style="padding:12px 16px"><button class="btn btn-sm" style="font-size:11px;padding:5px 10px" onclick="markDone(this)">Mark Done</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BURNOUT REPORT -->
+  <div id="sec-burnout" class="page-section">
+    <div class="topbar"><div><div class="page-title">Burnout Report</div><div class="page-sub">Detailed analysis of your academic stress indicators</div></div><button class="btn" onclick="downloadReport()">📥 Download PDF</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Score Breakdown</div></div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px">How your burnout score of <strong style="color:var(--text)">55</strong> is calculated:</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Study Hours (35%)</span><span style="font-weight:600;color:var(--amber)">22 pts</span></div>
+            <div style="height:6px;background:var(--border);border-radius:3px"><div style="height:100%;width:63%;background:var(--amber);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Stress Level (40%)</span><span style="font-weight:600;color:var(--red)">24 pts</span></div>
+            <div style="height:6px;background:var(--border);border-radius:3px"><div style="height:100%;width:60%;background:var(--red);border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Pending Tasks (25%)</span><span style="font-weight:600;color:var(--blue)">9 pts</span></div>
+            <div style="height:6px;background:var(--border);border-radius:3px"><div style="height:100%;width:36%;background:var(--blue);border-radius:3px"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px;background:var(--amber-light);border-radius:10px;font-size:13px;color:var(--amber)">⚠️ Medium Risk — Monitor and take preventive measures</div>
       </div>
-      <div class="log-form">
-        <div class="form-group">
-          <label>Study Hours</label>
-          <input type="number" value="6" min="0" max="24">
-        </div>
-        <div class="form-group">
-          <label>Stress Level (1–10)</label>
-          <input type="number" value="6" min="1" max="10">
-        </div>
-        <div class="form-group">
-          <label>Assignments Due</label>
-          <input type="number" value="2" min="0">
-        </div>
-        <div class="form-group">
-          <label>Tests / Exams</label>
-          <input type="number" value="1" min="0">
-        </div>
-        <div class="form-group full" style="display:flex; justify-content:flex-end; gap:8px;">
-          <button class="btn btn-sm">Clear</button>
-          <button class="btn btn-primary btn-sm">Save Entry</button>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Recommendations</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+          <div style="padding:10px 12px;background:var(--surface);border-radius:8px;border-left:3px solid var(--blue)">📚 Limit study sessions to 6 hours/day with 30-min breaks</div>
+          <div style="padding:10px 12px;background:var(--surface);border-radius:8px;border-left:3px solid var(--green)">🧘 Practice mindfulness for 10 minutes daily</div>
+          <div style="padding:10px 12px;background:var(--surface);border-radius:8px;border-left:3px solid var(--amber)">😴 Maintain 7-8 hours of sleep consistently</div>
+          <div style="padding:10px 12px;background:var(--surface);border-radius:8px;border-left:3px solid var(--accent)">💬 Consider scheduling a counseling session this week</div>
+          <div style="padding:10px 12px;background:var(--surface);border-radius:8px;border-left:3px solid var(--navy)">📋 Prioritize and break down large assignments</div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ALERTS -->
+  <!-- ALERTS -->
+  <div id="sec-alerts" class="page-section">
+    <div class="topbar"><div><div class="page-title">Alerts & Notifications</div><div class="page-sub">Stay on top of your academic wellbeing</div></div><button class="btn" onclick="dismissAlerts()">Mark all read</button></div>
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">Active Alerts</div>
-        <span class="card-link">Mark all read</span>
-      </div>
-      <div class="alert-item amber">
-        <span class="alert-icon">⚠️</span>
-        <div>
-          <div class="alert-text">High study load detected — 42h this week exceeds recommended limit.</div>
-          <div class="alert-sub">2 hours ago · System</div>
-        </div>
-      </div>
-      <div class="alert-item red">
-        <span class="alert-icon">🚨</span>
-        <div>
-          <div class="alert-text">3 assignments due within 48 hours. Prioritize your schedule.</div>
-          <div class="alert-sub">Yesterday · Faculty Advisor</div>
-        </div>
-      </div>
-      <div class="alert-item blue">
-        <span class="alert-icon">💬</span>
-        <div>
-          <div class="alert-text">Counselor Ms. Priya has invited you to a session on Wednesday.</div>
-          <div class="alert-sub">2 days ago · Counseling Dept.</div>
-        </div>
+      <div class="card-header"><div class="card-title">Active Alerts (3)</div></div>
+      <div style="display:flex;flex-direction:column;gap:10px" id="fullAlerts">
+        <div class="alert-item amber" style="border-radius:10px"><span class="alert-icon">⚠️</span><div><div class="alert-text" style="font-weight:500">High study load detected</div><div class="alert-text">42h this week exceeds the recommended 35h limit. Consider reducing optional activities.</div><div class="alert-sub">2 hours ago · System Monitor</div></div></div>
+        <div class="alert-item red" style="border-radius:10px"><span class="alert-icon">🚨</span><div><div class="alert-text" style="font-weight:500">3 assignments due within 48 hours</div><div class="alert-text">DBMS Exam (Apr 13), SE Lab Report (Apr 14), OS Assignment (Apr 15). Prioritize accordingly.</div><div class="alert-sub">Yesterday · Faculty Advisor Dr. D. Kumar</div></div></div>
+        <div class="alert-item blue" style="border-radius:10px"><span class="alert-icon">💬</span><div><div class="alert-text" style="font-weight:500">Counseling session invitation</div><div class="alert-text">Ms. Priya Anand has invited you to a session on Wednesday, Apr 16 at 2:00 PM.</div><div class="alert-sub">2 days ago · Counseling Dept. <button class="btn btn-primary btn-sm" style="margin-left:10px;font-size:11px;padding:4px 10px" onclick="acceptSession()">Accept</button></div></div></div>
       </div>
     </div>
+  </div>
 
-    <!-- RECENT ACTIVITY -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Recent Activity</div>
-        <span class="card-link">View all</span>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot blue"></div>
-        <div>
-          <div class="act-text">Logged 8 study hours for DBMS preparation</div>
-          <div class="act-time">Today, 9:30 AM</div>
+  <!-- SETTINGS -->
+  <div id="sec-settings" class="page-section">
+    <div class="topbar"><div><div class="page-title">Settings</div><div class="page-sub">Manage your profile and notification preferences</div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Profile</div></div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div><label style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;display:block;margin-bottom:6px">Full Name</label><input type="text" value="Aanya Kachroo" style="width:100%;height:38px;border:1.5px solid var(--border);border-radius:8px;padding:0 12px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"></div>
+          <div><label style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;display:block;margin-bottom:6px">Email</label><input type="email" value="student@college.edu" style="width:100%;height:38px;border:1.5px solid var(--border);border-radius:8px;padding:0 12px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"></div>
+          <div><label style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);font-weight:500;display:block;margin-bottom:6px">Roll Number</label><input type="text" value="21CS042" style="width:100%;height:38px;border:1.5px solid var(--border);border-radius:8px;padding:0 12px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none"></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Profile updated successfully!', 'success')">Save Changes</button>
         </div>
       </div>
-      <div class="activity-item">
-        <div class="act-dot amber"></div>
-        <div>
-          <div class="act-text">Added assignment: Software Engineering Lab Report</div>
-          <div class="act-time">Yesterday, 11:15 PM</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot red"></div>
-        <div>
-          <div class="act-text">Stress level updated to 8/10</div>
-          <div class="act-time">Yesterday, 7:00 PM</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot green"></div>
-        <div>
-          <div class="act-text">Burnout risk report generated — Medium Risk</div>
-          <div class="act-time">2 days ago, 6:00 AM</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- UPCOMING -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">Upcoming Deadlines</div>
-        <span class="card-link">Add new</span>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot red"></div>
-        <div>
-          <div class="act-text" style="font-weight:500">DBMS Internal Exam</div>
-          <div class="act-time">Tomorrow · 10:00 AM</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot amber"></div>
-        <div>
-          <div class="act-text" style="font-weight:500">SE Lab Report Submission</div>
-          <div class="act-time">Apr 14 · 11:59 PM</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot amber"></div>
-        <div>
-          <div class="act-text" style="font-weight:500">OS Assignment #4</div>
-          <div class="act-time">Apr 15 · 5:00 PM</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="act-dot blue"></div>
-        <div>
-          <div class="act-text" style="font-weight:500">Counseling Session — Ms. Priya</div>
-          <div class="act-time">Apr 16 · 2:00 PM</div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Notification Preferences</div></div>
+        <div style="display:flex;flex-direction:column;gap:16px;font-size:13px">
+          <div style="display:flex;justify-content:space-between;align-items:center">Email alerts for high burnout risk<input type="checkbox" checked style="width:16px;height:16px;cursor:pointer"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">Assignment deadline reminders<input type="checkbox" checked style="width:16px;height:16px;cursor:pointer"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">Counseling session invites<input type="checkbox" checked style="width:16px;height:16px;cursor:pointer"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center">Weekly burnout summary<input type="checkbox" style="width:16px;height:16px;cursor:pointer"></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Preferences saved!', 'success')">Save Preferences</button>
         </div>
       </div>
     </div>
   </div>
 </main>
 
+<!-- Log Modal -->
+<div class="modal-overlay" id="logModal">
+  <div class="modal">
+    <div class="modal-title">Log Today's Activity</div>
+    <div class="modal-sub">Enter your academic activity for today</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div class="form-group"><label>Study Hours</label><input type="number" id="mStudy" value="6" min="0" max="24"></div>
+      <div class="form-group"><label>Stress Level (1–10)</label><input type="number" id="mStress" value="6" min="1" max="10"></div>
+      <div class="form-group"><label>Assignments Due</label><input type="number" id="mAssign" value="2" min="0"></div>
+      <div class="form-group"><label>Tests / Exams</label><input type="number" id="mTests" value="1" min="0"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveModalEntry()">Save Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span id="toastIcon">✓</span><span id="toastMsg">Entry saved!</span></div>
+
+<script>
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const now = new Date();
+document.getElementById('dateDisplay').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} · Semester 6`;
+
+let currentScore = 55;
+let alertCount = 3;
+
+function showSection(name, el) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  if (el) el.classList.add('active');
+}
+
+function computeScore(study, stress, assign) {
+  const studyScore = Math.min((study / 70) * 35, 35);
+  const stressScore = (stress / 10) * 40;
+  const assignScore = Math.min((assign / 10) * 25, 25);
+  return Math.round(studyScore + stressScore + assignScore);
+}
+
+function updateScoreDisplay(score) {
+  currentScore = score;
+  const circle = document.getElementById('scoreCircle');
+  const offset = 283 - (score / 100) * 283;
+  circle.style.strokeDashoffset = offset;
+  document.getElementById('scoreNum').textContent = score;
+
+  let color, riskText, desc;
+  if (score <= 40) { color = '#16a34a'; riskText = 'Low Risk'; desc = 'Your academic load is well-balanced. Keep up the great work!'; }
+  else if (score <= 70) { color = '#ff6b35'; riskText = 'Medium Risk'; desc = 'Your workload is elevated. Consider reducing optional commitments this week.'; }
+  else { color = '#dc2626'; riskText = 'High Risk'; desc = 'Immediate attention needed. Please consult your faculty advisor or counselor.'; }
+
+  circle.style.stroke = color;
+  document.getElementById('scoreRisk').style.color = color;
+  document.getElementById('scoreRisk').textContent = riskText;
+  document.getElementById('scoreDesc').textContent = desc;
+}
+
+function saveEntry() {
+  const study = parseInt(document.getElementById('logStudy').value) || 0;
+  const stress = parseInt(document.getElementById('logStress').value) || 0;
+  const assign = parseInt(document.getElementById('logAssign').value) || 0;
+  const tests = parseInt(document.getElementById('logTests').value) || 0;
+
+  const score = computeScore(study + (tests * 3), stress, assign + tests);
+  updateScoreDisplay(score);
+
+  document.getElementById('studyHours').textContent = (42 + study) + 'h';
+  document.getElementById('stressVal').textContent = stress + '/10';
+  const stressPct = (stress / 10) * 100;
+  document.getElementById('stressBar').style.width = stressPct + '%';
+  document.getElementById('studyBar').style.width = Math.min(((42 + study) / 70) * 100, 100) + '%';
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  const feed = document.getElementById('activityFeed');
+  const newItem = document.createElement('div');
+  newItem.className = 'activity-item';
+  newItem.innerHTML = `<div class="act-dot blue"></div><div><div class="act-text">Logged ${study}h study, stress level ${stress}/10</div><div class="act-time">Today, ${timeStr}</div></div>`;
+  feed.insertBefore(newItem, feed.firstChild);
+
+  showToast('✓ Entry saved & burnout score updated!', 'success');
+}
+
+function clearLog() {
+  document.getElementById('logStudy').value = 0;
+  document.getElementById('logStress').value = 0;
+  document.getElementById('logAssign').value = 0;
+  document.getElementById('logTests').value = 0;
+}
+
+function openLogModal() {
+  document.getElementById('logModal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('logModal').classList.remove('open');
+}
+function saveModalEntry() {
+  document.getElementById('logStudy').value = document.getElementById('mStudy').value;
+  document.getElementById('logStress').value = document.getElementById('mStress').value;
+  document.getElementById('logAssign').value = document.getElementById('mAssign').value;
+  document.getElementById('logTests').value = document.getElementById('mTests').value;
+  closeModal();
+  saveEntry();
+}
+
+function dismissAlerts() {
+  document.getElementById('alertsContainer').innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">✓ All alerts marked as read</div>';
+  document.getElementById('alertBadge').style.display = 'none';
+  document.getElementById('notifDot').style.display = 'none';
+  if (document.getElementById('fullAlerts')) document.getElementById('fullAlerts').innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">✓ All alerts cleared</div>';
+  showToast('All alerts marked as read', 'info');
+}
+
+function acceptSession() {
+  showToast('✓ Counseling session accepted for Apr 16, 2:00 PM', 'success');
+}
+
+function addDeadline() {
+  const title = prompt('Deadline title:');
+  if (!title) return;
+  const due = prompt('Due date (e.g. Apr 20):');
+  const list = document.getElementById('deadlines');
+  const item = document.createElement('div');
+  item.className = 'activity-item';
+  item.innerHTML = `<div class="act-dot blue"></div><div><div class="act-text" style="font-weight:500">${title}</div><div class="act-time">${due || 'TBD'}</div></div>`;
+  list.insertBefore(item, list.firstChild);
+  showToast('Deadline added!', 'success');
+}
+
+function addAssignment() {
+  const title = prompt('Assignment title:');
+  if (!title) return;
+  const subject = prompt('Subject:');
+  const due = prompt('Due date (e.g. Apr 20):');
+  const tbody = document.getElementById('assignBody');
+  const row = document.createElement('tr');
+  row.innerHTML = `<td style="padding:12px 16px;border-top:1px solid var(--border);font-weight:500">${title}</td><td style="padding:12px 16px;border-top:1px solid var(--border)">${subject||'—'}</td><td style="padding:12px 16px;border-top:1px solid var(--border);color:var(--blue);font-weight:500">${due||'TBD'}</td><td style="padding:12px 16px;border-top:1px solid var(--border)"><span style="background:var(--blue-light);color:var(--blue);padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500">New</span></td><td style="padding:12px 16px;border-top:1px solid var(--border)"><button class="btn btn-sm" style="font-size:11px;padding:5px 10px" onclick="markDone(this)">Mark Done</button></td>`;
+  tbody.insertBefore(row, tbody.firstChild);
+  showToast('Assignment added!', 'success');
+}
+
+function markDone(btn) {
+  const row = btn.closest('tr');
+  row.style.opacity = '0.5';
+  row.style.textDecoration = 'line-through';
+  btn.textContent = '✓ Done';
+  btn.disabled = true;
+  btn.style.color = 'var(--green)';
+  btn.style.borderColor = 'var(--green)';
+  showToast('Assignment marked as done!', 'success');
+  const pending = parseInt(document.getElementById('pendingCount').textContent);
+  document.getElementById('pendingCount').textContent = Math.max(0, pending - 1);
+}
+
+function openCounseling() {
+  showToast('Opening counseling portal...', 'info');
+  setTimeout(() => { alert('Ms. Priya Anand is available for sessions.\nNext slot: Wednesday, Apr 16 at 2:00 PM\n\nClick OK to confirm booking.'); showToast('Session booked for Apr 16!', 'success'); }, 300);
+}
+
+function downloadReport() {
+  showToast('📥 Downloading your burnout report...', 'info');
+  setTimeout(() => showToast('Report downloaded!', 'success'), 1500);
+}
+
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+setTimeout(() => updateScoreDisplay(55), 400);
+document.getElementById('logModal').addEventListener('click', e => { if (e.target === document.getElementById('logModal')) closeModal(); });
+</script>
 </body>
 </html>
